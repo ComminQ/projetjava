@@ -3,19 +3,27 @@ package net.stri.fdjava.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.stri.fdjava.models.entity.Heros;
 import net.stri.fdjava.models.world.Salle;
+import net.stri.fdjava.views.DonjonView;
 
 public class DonjonController {
 
 	private List<Salle> salles;
 	private Salle entree;
 	private Salle sortie;
+	private DonjonView donjonView;
 	
 	public DonjonController() {
-		this.salles = new ArrayList();
+		this.salles = new ArrayList<>();
 		this.genererDonjon();
 	}
-
+	
+	public void entrer(Heros heros) {
+		
+	}
+	
+	
 	private void genererDonjon() {
 		
 		// Création des salles
@@ -57,7 +65,6 @@ public class DonjonController {
 		
 		this.entree = entree;
 		this.sortie = sortie;
-		
 	}
 	
 }

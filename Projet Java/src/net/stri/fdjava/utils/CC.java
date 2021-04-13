@@ -1,6 +1,6 @@
 package net.stri.fdjava.utils;
 
-public class CC {
+public final class CC {
 	
 	private CC() {}
 
