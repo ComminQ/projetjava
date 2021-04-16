@@ -8,6 +8,14 @@ import net.stri.fdjava.utils.CC;
 
 public class ProprietesButin extends ProprietesItem{
 
+	/**
+	 * @author Fabien CAYRE (Computer)
+	 *
+	 * @date 16/04/2021
+	 */
+	private static final long serialVersionUID = -6614964232308792201L;
+
+
 	public ProprietesButin() {
 		super();
 	}

@@ -1,20 +1,30 @@
 package net.stri.fdjava.models.entity;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
 import lombok.Getter;
+import lombok.Setter;
 import net.stri.fdjava.models.item.Item;
 
-public abstract class Entity {
+public abstract class Entity implements Serializable{
 
-	private Map<Emplacement, Item> equipement;
+	/**
+	 * @author Fabien CAYRE (Computer)
+	 *
+	 * @date 16/04/2021
+	 */
+	private static final long serialVersionUID = -6820141359657416476L;
+	
+	
+	protected Map<Emplacement, Item> equipement;
+	@Getter @Setter
+	protected String nom;
 	@Getter
-	private String nom;
+	protected int ptsVie;
 	@Getter
-	private int ptsVie;
-	@Getter
-	private int ptsForce;
+	protected int ptsForce;
 	
 	
 	public Entity(String nom, int ptsVie, int ptsForce) {
@@ -36,6 +46,13 @@ public abstract class Entity {
 		// TODO check si l'item est bon pour l'emplacement
 		this.equipement.put(emplacement, item);
 	}
+
+	@Override
+	public String toString() {
+		return "Entity [nom=" + nom + ", ptsVie=" + ptsVie + ", ptsForce=" + ptsForce + "]";
+	}
+	
+	
 	
 	
 }

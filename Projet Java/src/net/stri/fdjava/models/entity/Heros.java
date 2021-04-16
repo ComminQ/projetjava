@@ -6,6 +6,13 @@ import net.stri.fdjava.models.world.Salle;
 
 public class Heros extends Entity{
 
+	/**
+	 * @author Fabien CAYRE (Computer)
+	 *
+	 * @date 16/04/2021
+	 */
+	private static final long serialVersionUID = -7460688875366432094L;
+	
 	private Inventaire inventaire;
 	@Getter @Setter
 	private Salle salle;
@@ -13,4 +20,18 @@ public class Heros extends Entity{
 	public Heros(String nom, int ptsVie, int ptsForce) {
 		super(nom, ptsVie, ptsForce);
 	}
+	
+	public Heros(int ptsVie, int ptsForce) {
+		super("_none", ptsVie, ptsForce);
+	}
+
+	@Override
+	public String toString() {
+		return "Heros [salle=" + salle + ", nom=" + nom + ", ptsVie=" + ptsVie + ", ptsForce=" + ptsForce + "]";
+	}
+
+
+
+	
+	
 }

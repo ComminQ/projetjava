@@ -1,13 +1,22 @@
 package net.stri.fdjava.models.item;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Getter;
 import net.stri.fdjava.utils.CC;
 
-public class ProprietesItem {
-
+public class ProprietesItem implements Serializable {
+	
+	/**
+	 * @author Fabien CAYRE (Computer)
+	 *
+	 * @date 16/04/2021
+	 */
+	private static final long serialVersionUID = -967720215441886950L;
+	
+	
 	@Getter
 	protected String nom;
 	@Getter

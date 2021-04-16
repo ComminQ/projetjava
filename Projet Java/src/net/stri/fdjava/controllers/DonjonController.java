@@ -5,14 +5,14 @@ import java.util.List;
 
 import net.stri.fdjava.models.entity.Heros;
 import net.stri.fdjava.models.world.Salle;
-import net.stri.fdjava.views.DonjonView;
+import net.stri.fdjava.views.DonjonVue;
 
 public class DonjonController {
 
 	private List<Salle> salles;
 	private Salle entree;
 	private Salle sortie;
-	private DonjonView donjonView;
+	private DonjonVue donjonView;
 	
 	public DonjonController() {
 		this.salles = new ArrayList<>();
@@ -23,19 +23,18 @@ public class DonjonController {
 		
 	}
 	
-	
 	private void genererDonjon() {
 		
 		// Création des salles
-		Salle entree = new Salle();
-		Salle s01 = new Salle();
-		Salle s02 = new Salle();
-		Salle s03 = new Salle();
-		Salle s10 = new Salle();
-		Salle s11 = new Salle();
-		Salle s12 = new Salle();
-		Salle s13 = new Salle();
-		Salle sortie = new Salle();
+		Salle entree = new Salle("Entrée");
+		Salle s01 = new Salle("S01");
+		Salle s02 = new Salle("S02");
+		Salle s03 = new Salle("S03");
+		Salle s10 = new Salle("S10");
+		Salle s11 = new Salle("S11");
+		Salle s12 = new Salle("S12");
+		Salle s13 = new Salle("S13");
+		Salle sortie = new Salle("Salle finale");
 		
 		// Connexion
 		entree.setNord(s01);

@@ -4,7 +4,15 @@ import static net.stri.fdjava.utils.Console.println;
 
 import java.util.Scanner;
 
-public class SalleView {
+import net.stri.fdjava.models.world.Salle;
+
+public class SalleVue {
+	
+	private Salle salle;
+	
+	private SalleVue(Salle salle) {
+		this.salle = salle;
+	}
 
 	/**
 	 * 
@@ -23,6 +31,10 @@ public class SalleView {
 		}
 		scan.close();
 		return direction;
+	}
+	
+	public void afficherSalle() {
+		
 	}
 
 }
