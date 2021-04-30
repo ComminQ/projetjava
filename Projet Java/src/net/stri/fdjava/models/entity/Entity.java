@@ -21,9 +21,9 @@ public abstract class Entity implements Serializable{
 	protected Map<Emplacement, Item> equipement;
 	@Getter @Setter
 	protected String nom;
-	@Getter
+	@Getter @Setter
 	protected int ptsVie;
-	@Getter
+	@Getter @Setter
 	protected int ptsForce;
 	
 	

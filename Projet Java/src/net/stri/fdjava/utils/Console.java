@@ -3,6 +3,8 @@ package net.stri.fdjava.utils;
 import java.util.Scanner;
 
 public final class Console {
+	
+	private static final Scanner scanner = new Scanner(System.in);
 
 	/**
 	 * 
@@ -28,6 +30,22 @@ public final class Console {
 		System.out.print(String.format("%c[%d;%df", escCode, row, col));
 	}
 	
+	public static void vider() {
+		demanderChaine();
+	}
+	
+	/**
+	 * 
+	 * @author Fabien CAYRE (Computer)
+	 *
+	 * @return
+	 * @date 16/04/2021
+	 */
+	public static int demanderEntier() {
+		int line = scanner.nextInt();
+		return line;
+	}
+	
 	/**
 	 * 
 	 * @author Fabien CAYRE (Computer)
@@ -36,9 +54,7 @@ public final class Console {
 	 * @date 16/04/2021
 	 */
 	public static String demanderChaine() {
-		Scanner scanner = new Scanner(System.in);
 		String line = scanner.nextLine();
-		scanner.close();
 		return line;
 	}
 

@@ -20,6 +20,8 @@ public class DonjonController {
 	}
 	
 	public void entrer(Heros heros) {
+		this.donjonView.afficherEntree(heros);
+		heros.setSalle(this.entree);
 		
 	}
 	
