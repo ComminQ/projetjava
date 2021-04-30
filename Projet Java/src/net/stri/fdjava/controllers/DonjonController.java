@@ -7,6 +7,15 @@ import java.util.List;
 import net.stri.fdjava.models.entity.Heros;
 import net.stri.fdjava.models.world.Salle;
 
+/**
+ * Controleur du donjon, représente le donjon en lui même
+ * 
+ * 
+ * 
+ * @author Fabien CAYRE (Computer)
+ *
+ * @date 30/04/2021
+ */
 public class DonjonController {
 
 	private List<Salle> salles;
@@ -20,10 +29,22 @@ public class DonjonController {
 		this.heros = heros;
 	}
 	
+	/**
+	 * Fait rentrer le héros dans le donjon, donc dans la salle principale
+	 * @author Fabien CAYRE (Computer)
+	 *
+	 * @date 30/04/2021
+	 */
 	public void entrer() {
 		heros.setSalle(entree);
 	}
 	
+	/**
+	 * Génère les salles du donjons
+	 * @author Fabien CAYRE (Computer)
+	 *
+	 * @date 30/04/2021
+	 */
 	private void genererDonjon() {
 		
 		// Création des salles

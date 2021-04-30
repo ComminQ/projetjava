@@ -2,6 +2,12 @@ package net.stri.fdjava.views;
 
 import lombok.Getter;
 
+/**
+ * Direction 
+ * @author Fabien CAYRE (Computer)
+ *
+ * @date 30/04/2021
+ */
 public enum Direction {
 
 	NORD("N"),

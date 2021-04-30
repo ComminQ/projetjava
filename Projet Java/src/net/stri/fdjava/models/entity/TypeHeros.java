@@ -3,6 +3,12 @@ package net.stri.fdjava.models.entity;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Concerne les différentes classes d'héros
+ * @author Fabien CAYRE (Computer)
+ *
+ * @date 30/04/2021
+ */
 public enum TypeHeros {
 
 	PALADIN(100, 50),

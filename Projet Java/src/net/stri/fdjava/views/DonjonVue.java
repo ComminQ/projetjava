@@ -4,6 +4,12 @@ import static net.stri.fdjava.utils.Console.println;
 
 import net.stri.fdjava.controllers.DonjonController;
 
+/**
+ * Représente la vue d'un donjon
+ * @author Fabien CAYRE (Computer)
+ *
+ * @date 30/04/2021
+ */
 public class DonjonVue {
 
 	public static final String DISPLAY_ROOM = "" +

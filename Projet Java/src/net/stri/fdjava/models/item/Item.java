@@ -5,6 +5,12 @@ import java.io.Serializable;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * 
+ * @author Fabien CAYRE (Computer)
+ *
+ * @date 30/04/2021
+ */
 public class Item implements Serializable  {
 
 	/**
@@ -14,7 +20,10 @@ public class Item implements Serializable  {
 	 */
 	private static final long serialVersionUID = -2362809264765483752L;
 	
-	@Getter @Setter
+	/**
+	 * La quantité d'item
+	 */
+	@Getter
 	private int quantite;
 	@Getter @Setter
 	private TypeItem type;
@@ -24,9 +33,15 @@ public class Item implements Serializable  {
 	public Item(TypeItem type) {
 		this.type = type;
 		
-		
 		this.proprietesItem = type.genererProprietes(this);
-		this.proprietesItem.majDonnees(this);
+	}
+	
+	public void setQuantite(int quantite) {
+		// vérification customisé
+		if(quantite > type.getQuantiteMax()) {
+			throw new IllegalArgumentException("La quantité est trop importante pour le type d'item");
+		}
+		this.quantite = quantite;
 	}
 	
 	

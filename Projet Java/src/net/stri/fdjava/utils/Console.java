@@ -2,6 +2,12 @@ package net.stri.fdjava.utils;
 
 import java.util.Scanner;
 
+/**
+ * Méthodes d'aide à la manipulation de la console
+ * @author Fabien CAYRE (Computer)
+ *
+ * @date 30/04/2021
+ */
 public final class Console {
 	
 	private static final Scanner scanner = new Scanner(System.in);

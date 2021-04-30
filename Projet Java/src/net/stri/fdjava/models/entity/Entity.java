@@ -9,6 +9,12 @@ import lombok.Setter;
 import net.stri.fdjava.models.item.Item;
 import net.stri.fdjava.models.item.properties.ProprietesOffensive;
 
+/**
+ * Représente un entité du jeu
+ * @author Fabien CAYRE (Computer)
+ *
+ * @date 30/04/2021
+ */
 public abstract class Entity implements Serializable{
 
 	/**
@@ -19,11 +25,25 @@ public abstract class Entity implements Serializable{
 	private static final long serialVersionUID = -6820141359657416476L;
 	
 	
+	/**
+	 * Son équipement
+	 */
 	protected Map<Emplacement, Item> equipement;
+	/**
+	 * Le nom de l'entité
+	 */
 	@Getter @Setter
 	protected String nom;
+	
+	/**
+	 * Les points de vie
+	 */
 	@Getter @Setter
 	protected int ptsVie;
+	
+	/**
+	 * Les dégats
+	 */
 	@Getter @Setter
 	protected int ptsForce;
 	
@@ -55,7 +75,7 @@ public abstract class Entity implements Serializable{
 	}
 	
 	/**
-	 * 
+	 * Met l'item dans l'équipement du joueur 
 	 * @author Fabien CAYRE (Computer)
 	 *
 	 * @param emplacement

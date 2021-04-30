@@ -1,5 +1,11 @@
 package net.stri.fdjava.utils;
 
+/**
+ * Représente les couleurs dans la console
+ * @author Fabien CAYRE (Computer)
+ *
+ * @date 30/04/2021
+ */
 public enum Colour {
 
 	BLACK("\033[0;30m", "§k"), // BLACK
@@ -12,6 +18,14 @@ public enum Colour {
 	WHITE("\033[0;37m", "§f"), // WHITE
 	RESET("\033[0;37m", "§r"); // RESET
 
+	/**
+	 * Transforme les codes textes
+	 * @author Fabien CAYRE (Computer)
+	 *
+	 * @param text
+	 * @return
+	 * @date 30/04/2021
+	 */
 	public static String transform(String text) {
 		for (Colour col : Colour.values()) {
 			text = text.replaceAll("\\" + col.replace, col.tag);
@@ -22,6 +36,14 @@ public enum Colour {
 	private String tag;
 	private String replace;
 
+	/**
+	 * Constructeur
+	 * @author Fabien CAYRE (Computer)
+	 *
+	 * @param tag
+	 * @param replace
+	 * @date 30/04/2021
+	 */
 	private Colour(String tag, String replace) {
 		this.tag = tag;
 		this.replace = replace;

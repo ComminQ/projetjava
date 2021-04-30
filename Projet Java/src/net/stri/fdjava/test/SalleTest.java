@@ -6,6 +6,12 @@ import org.junit.Test;
 
 import net.stri.fdjava.views.Direction;
 
+/**
+ * test JUnit pour la direction
+ * @author Fabien CAYRE (Computer)
+ *
+ * @date 30/04/2021
+ */
 public class SalleTest {
 
 	@Test

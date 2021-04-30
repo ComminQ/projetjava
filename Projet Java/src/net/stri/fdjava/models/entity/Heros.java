@@ -4,6 +4,12 @@ import lombok.Getter;
 import lombok.Setter;
 import net.stri.fdjava.models.world.Salle;
 
+/**
+ * Représente un héros
+ * @author Fabien CAYRE (Computer)
+ *
+ * @date 30/04/2021
+ */
 public class Heros extends Entity {
 
 	/**
@@ -13,8 +19,14 @@ public class Heros extends Entity {
 	 */
 	private static final long serialVersionUID = -7460688875366432094L;
 
+	/**
+	 * L'inventaire du héros
+	 */
 	@Getter
 	private Inventaire inventaire;
+	/**
+	 * La salle dans lequel il est présent
+	 */
 	@Getter
 	@Setter
 	private Salle salle;

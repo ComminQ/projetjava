@@ -7,6 +7,17 @@ import java.util.List;
 import lombok.Getter;
 import net.stri.fdjava.utils.CC;
 
+/**
+ * Représente les propriétès d'un item
+ * 
+ * les items partages les mêmes type de propriétès, mais pas le même contenu 
+ * Ex:
+ *  - Une armure en fer et une armure mythique en fer sont deux armures en fer
+ *  	Mais une ne donne pas autant de protection que l'autre
+ * @author Fabien CAYRE (Computer)
+ *
+ * @date 30/04/2021
+ */
 public class ProprietesItem implements Serializable {
 	
 	/**

@@ -6,6 +6,12 @@ import net.stri.fdjava.controllers.CreerHerosController;
 import net.stri.fdjava.models.entity.TypeHeros;
 import net.stri.fdjava.utils.Console;
 
+/**
+ * Vue permettant la création du héros
+ * @author Fabien CAYRE (Computer)
+ *
+ * @date 30/04/2021
+ */
 public class CreerHerosVue {
 
 	private CreerHerosController controleur;

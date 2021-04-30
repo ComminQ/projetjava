@@ -1,5 +1,11 @@
 package net.stri.fdjava.utils;
 
+/**
+ * Couleur de console
+ * @author Fabien CAYRE (Computer)
+ *
+ * @date 30/04/2021
+ */
 public final class CC {
 	
 	private CC() {}

@@ -4,6 +4,12 @@ import lombok.Getter;
 import lombok.Setter;
 import net.stri.fdjava.models.item.ProprietesItem;
 
+/**
+ * Représente les propriétès d'un item offensif (Armure ou Epée)
+ * @author Fabien CAYRE (Computer)
+ *
+ * @date 30/04/2021
+ */
 public class ProprietesOffensive extends ProprietesItem{
 
 	/**

@@ -5,6 +5,12 @@ import java.io.Serializable;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * 
+ * @author Fabien CAYRE (Computer)
+ *
+ * @date 30/04/2021
+ */
 public class Salle implements Serializable {
 
 	/**
@@ -26,6 +32,13 @@ public class Salle implements Serializable {
 	@Getter @Setter
 	private String name;
 	
+	/**
+	 * Le constructeur
+	 * @author Fabien CAYRE (Computer)
+	 *
+	 * @param name Le nom de la salle
+	 * @date 30/04/2021
+	 */
 	public Salle(String name) {
 		this.name = name;
 	}
