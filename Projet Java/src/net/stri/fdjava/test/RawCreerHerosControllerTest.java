@@ -6,6 +6,16 @@ import net.stri.fdjava.views.CreerHerosVue;
 
 public class RawCreerHerosControllerTest {
 
+	public static Heros creerHeros() {
+		Heros heros = new Heros(80, 20);
+		CreerHerosController controlleur = new CreerHerosController(heros);
+		CreerHerosVue vue = new CreerHerosVue(controlleur);
+		
+		vue.demanderNomHeros();
+		vue.demanderTypeHeros();
+		return heros;
+	}
+	
 	/**
 	 * 
 	 * @author Fabien CAYRE (Computer)
@@ -14,12 +24,7 @@ public class RawCreerHerosControllerTest {
 	 * @date 16/04/2021
 	 */
 	public static void main(String[] args) {
-		Heros heros = new Heros(80, 20);
-		CreerHerosController controlleur = new CreerHerosController(heros);
-		CreerHerosVue vue = new CreerHerosVue(controlleur);
-		
-		vue.demanderNomHeros();
-		vue.demanderTypeHeros();
+		creerHeros();
 	}
 	
 }

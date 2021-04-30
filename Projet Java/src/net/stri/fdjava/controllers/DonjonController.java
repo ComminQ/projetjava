@@ -1,28 +1,27 @@
 package net.stri.fdjava.controllers;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import net.stri.fdjava.models.entity.Heros;
 import net.stri.fdjava.models.world.Salle;
-import net.stri.fdjava.views.DonjonVue;
 
 public class DonjonController {
 
 	private List<Salle> salles;
 	private Salle entree;
 	private Salle sortie;
-	private DonjonVue donjonView;
+	private Heros heros;
 	
-	public DonjonController() {
+	public DonjonController(Heros heros) {
 		this.salles = new ArrayList<>();
 		this.genererDonjon();
+		this.heros = heros;
 	}
 	
-	public void entrer(Heros heros) {
-		this.donjonView.afficherEntree(heros);
-		heros.setSalle(this.entree);
-		
+	public void entrer() {
+		heros.setSalle(entree);
 	}
 	
 	private void genererDonjon() {
@@ -66,6 +65,41 @@ public class DonjonController {
 		
 		this.entree = entree;
 		this.sortie = sortie;
+	}
+
+	public String getNomHeros() {
+		return this.heros.getNom();
+	}
+
+	/**
+	 * Renvoie les salles disponibles respectivement
+	 * Index 0 = nord
+	 * Index 1 = ouest
+	 * Index 2 = est
+	 * Index 3 = sud
+	 * 
+	 * Sur ces index si la valeur est à false, il est impossible d'utiliser la porte pour aller dans la salle à la direction spécifiée
+	 * @author Fabien CAYRE (Computer)
+	 *
+	 * @return
+	 * @date 30/04/2021
+	 */
+	public boolean[] getSalleDisponible() {
+		boolean[] salles = new boolean[4];
+		Arrays.fill(salles, false);
+		if(this.heros.getSalle().getNord() != null) {
+			salles[0] = true;
+		}
+		if(this.heros.getSalle().getOuest() != null) {
+			salles[1] = true;
+		}
+		if(this.heros.getSalle().getEst() != null) {
+			salles[2] = true;
+		}
+		if(this.heros.getSalle().getSud() != null) {
+			salles[3] = true;
+		}
+		return salles;
 	}
 	
 }

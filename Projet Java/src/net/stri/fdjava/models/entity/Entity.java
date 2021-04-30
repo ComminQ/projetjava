@@ -7,6 +7,7 @@ import java.util.Map;
 import lombok.Getter;
 import lombok.Setter;
 import net.stri.fdjava.models.item.Item;
+import net.stri.fdjava.models.item.properties.ProprietesOffensive;
 
 public abstract class Entity implements Serializable{
 
@@ -26,7 +27,15 @@ public abstract class Entity implements Serializable{
 	@Getter @Setter
 	protected int ptsForce;
 	
-	
+	/**
+	 * 
+	 * @author Fabien CAYRE (Computer)
+	 *
+	 * @param nom
+	 * @param ptsVie
+	 * @param ptsForce
+	 * @date 30/04/2021
+	 */
 	public Entity(String nom, int ptsVie, int ptsForce) {
 		this.nom = nom;
 		this.ptsVie = ptsVie;
@@ -38,13 +47,27 @@ public abstract class Entity implements Serializable{
 	 * 
 	 * @author Fabien CAYRE (Computer)
 	 *
+	 * @param entity
+	 * @date 30/04/2021
+	 */
+	public void attaquer(Entity entity) {
+		//TODO appliquer les dégats en fonction, des points de vie, de la force, des items de chaque coté
+	}
+	
+	/**
+	 * 
+	 * @author Fabien CAYRE (Computer)
+	 *
 	 * @param emplacement
 	 * @param item
 	 * @date 13/04/2021
 	 */
 	public void setEquipement(Emplacement emplacement, Item item) {
-		// TODO check si l'item est bon pour l'emplacement
-		this.equipement.put(emplacement, item);
+		if(item.getProprietesItem() instanceof ProprietesOffensive) {
+			this.equipement.put(emplacement, item);
+		}else {
+			throw new IllegalArgumentException("L'item pour le slot "+emplacement+" n'est pas un équipement d'armure.");
+		}
 	}
 
 	@Override
