@@ -47,5 +47,19 @@ public enum Direction {
 	public Direction opposite() {
 		return Direction.values()[(this.ordinal() + 2) % 4];
 	}
+	
+	public int getDirectionForDonjon() {
+		switch(this) {
+		case EST:
+			return 2;
+		case NORD:
+			return 0;
+		case OUEST:
+			return 1;
+		case SUD:
+			return 3;
+		}
+		return -1;
+	}
 
 }
