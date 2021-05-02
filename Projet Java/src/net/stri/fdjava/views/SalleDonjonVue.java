@@ -58,6 +58,9 @@ public class SalleDonjonVue {
 			if(this.controleur.estDisponible(direction)) break;
 			println("§cCette direction n'est pas disponible");
 		}
+		if(this.controleur.estUnidirectionelle(direction)) {
+			println("§fOh non ! Vous êtes tombé dans un §ctrou§f, vous ne pouvez pas revenir en arrière");
+		}
 		this.controleur.changerSalle(direction);
 
 	}
