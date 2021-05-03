@@ -7,6 +7,7 @@ import net.stri.fdjava.utils.Console;
 
 /**
  * Représente la vue d'un donjon
+ * 
  * @author Fabien CAYRE (Computer)
  *
  * @date 30/04/2021
@@ -14,9 +15,13 @@ import net.stri.fdjava.utils.Console;
 public class SalleDonjonVue {
 
 	public static final String DISPLAY_ROOM = "" +
-		"    %s    \n" + "\n" +
-		"%s       %s\n" + "\n" +
-		"    %s    \n";
+		"+------+------+\n" +
+		"|      %s      |\n" +
+		"+             +\n" +
+		"| %s         %s |\n" +
+		"+             +\n" +
+		"|      %s      |\n"+ 
+		"+------+------+";
 
 	private DonjonController controleur;
 
@@ -44,25 +49,25 @@ public class SalleDonjonVue {
 		println("§fEntrez une direction pour rejoindre cette salle§r");
 		String choix = "";
 		for (Direction direction : Direction.values()) {
-			choix += direction.toString() + " ("+direction.getTag()+" : "+direction.getDirectionForDonjon()+"), ";
+			choix += direction.toString() + " (" + direction.getTag() + " : " + direction.getDirectionForDonjon() + "), ";
 		}
 		choix += "Bloqué (B)";
 
 		println("§dChoix des directions : §f" + choix);
 		int direction = -1;
-		while(!this.controleur.estDisponible(direction)) {
-			while(direction < 0 && direction >= Direction.values().length) {
-				println("§fEcrivez le numéro de la direction : ");
+		while (!this.controleur.estDisponible(direction)) {
+			while (direction < 0 || direction >= Direction.values().length) {
 				direction = Console.demanderEntier();
 			}
-			if(this.controleur.estDisponible(direction)) break;
+			if (this.controleur.estDisponible(direction)) break;
 			println("§cCette direction n'est pas disponible");
+			println("§fEcrivez le numéro de la direction : ");
+			direction = -1;
 		}
-		if(this.controleur.estUnidirectionelle(direction)) {
+		if (this.controleur.estUnidirectionelle(direction)) {
 			println("§fOh non ! Vous êtes tombé dans un §ctrou§f, vous ne pouvez pas revenir en arrière");
 		}
 		this.controleur.changerSalle(direction);
-
 	}
 
 }

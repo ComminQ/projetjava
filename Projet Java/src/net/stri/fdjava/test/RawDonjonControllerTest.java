@@ -19,6 +19,8 @@ public class RawDonjonControllerTest {
 		
 		vue.afficherEntree();
 		vue.selectionnerSalle();
+		vue.selectionnerSalle();
+		// ça marche !
 	}
 	
 }

@@ -26,8 +26,8 @@ public class DonjonController {
 
 	public DonjonController(Heros heros) {
 		this.salles = new ArrayList<>();
-		this.genererDonjon();
 		this.heros = heros;
+		this.genererDonjon();
 	}
 
 	/**
@@ -134,6 +134,7 @@ public class DonjonController {
 	 * @date 02/05/2021
 	 */
 	public boolean estDisponible(int direction) {
+		if(direction == -1)return false;
 		Direction dir = Direction.getForDonjon(direction);
 		switch(dir) {
 		case EST:
@@ -160,6 +161,7 @@ public class DonjonController {
 	 * @date 02/05/2021
 	 */
 	public boolean estUnidirectionelle(int direction) {
+		if(direction == -1)return false;
 		Direction dir = Direction.getForDonjon(direction);
 		boolean estDispo = estDisponible(direction);
 		if(!estDispo) return false;
@@ -184,6 +186,7 @@ public class DonjonController {
 	 * @date 02/05/2021
 	 */
 	public void changerSalle(int direction) {
+		if(direction == -1) return;
 		Direction dir = Direction.getForDonjon(direction);
 		switch(dir) {
 		case EST:
