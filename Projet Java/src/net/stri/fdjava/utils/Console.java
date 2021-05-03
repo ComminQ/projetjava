@@ -9,7 +9,7 @@ import java.util.Scanner;
  * @date 30/04/2021
  */
 public final class Console {
-	
+
 	private static final Scanner scanner = new Scanner(System.in);
 
 	/**
@@ -22,7 +22,7 @@ public final class Console {
 	public static void print(String text) {
 		System.out.print(Colour.transform(text));
 	}
-	
+
 	/**
 	 * 
 	 * @author Fabien CAYRE (Computer)
@@ -33,7 +33,7 @@ public final class Console {
 	public static void println(String text) {
 		System.out.println(Colour.transform(text));
 	}
-	
+
 	/**
 	 * 
 	 * @author Fabien CAYRE (Computer)
@@ -46,12 +46,29 @@ public final class Console {
 		char escCode = 0x1B;
 		System.out.print(String.format("%c[%d;%df", escCode, row, col));
 	}
-	
+
+	/**
+	 * Permet de clear le terminal
+	 * @author Fabien CAYRE (Computer)
+	 *
+	 * @date 03/05/2021
+	 */
+	public static void nettoyerEcran() {
+		System.out.print("\033[H\033[2J");
+		System.out.flush();
+	}
+
+	/**
+	 * Vide le scanner en cas d'erreur
+	 * @author Fabien CAYRE (Computer)
+	 *
+	 * @date 03/05/2021
+	 */
 	public static void vider() {
 		scanner.reset();
 		demanderChaine();
 	}
-	
+
 	/**
 	 * 
 	 * @author Fabien CAYRE (Computer)
@@ -63,7 +80,7 @@ public final class Console {
 		int line = scanner.nextInt();
 		return line;
 	}
-	
+
 	/**
 	 * 
 	 * @author Fabien CAYRE (Computer)

@@ -16,7 +16,8 @@ public enum Colour {
 	PURPLE("\033[0;35m", "§5"), // PURPLE
 	CYAN("\033[0;36m", "§d"), // CYAN
 	WHITE("\033[0;37m", "§f"), // WHITE
-	RESET("\033[0;37m", "§r"); // RESET
+	BOLD("\033[0;1m", "§l"), // BOLD
+	RESET("\033[0;37m \033[0;0m", "§r"); // RESET
 
 	/**
 	 * Transforme les codes textes
