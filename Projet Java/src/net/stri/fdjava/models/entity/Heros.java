@@ -47,5 +47,6 @@ public class Heros extends Entity {
 	public String toString() {
 		return "Heros [salle=" + salle + ", nom=" + nom + ", ptsVie=" + ptsVie + ", ptsForce=" + ptsForce + "]";
 	}
+	
 
 }
