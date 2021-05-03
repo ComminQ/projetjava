@@ -1,17 +1,30 @@
 package net.stri.fdjava.utils;
 
-import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.List;
 
 public class Fichier {
 
+	/**
+	 * 
+	 * @author Fabien CAYRE (Computer)
+	 *
+	 * @param dossier
+	 * @return
+	 * @date 03/05/2021
+	 */
+	public static List<File> listerFichier(String dossier){
+		//TODO
+		
+		return null;
+	}
+	
 	/**
 	 * Créer un fichier sur le système
 	 * @author Fabien CAYRE (Computer)
