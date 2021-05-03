@@ -167,13 +167,17 @@ public class DonjonController {
 		if(!estDispo) return false;
 		switch(dir) {
 		case EST:
+			if(this.heros.getSalle().getEst() == null) return false;
 			return this.heros.getSalle().getEst().getOuest() == null;
 		case NORD:
-			return this.heros.getSalle().getEst().getNord() == null;
+			if(this.heros.getSalle().getNord() == null) return false;
+			return this.heros.getSalle().getNord().getSud() == null;
 		case OUEST:
-			return this.heros.getSalle().getEst().getOuest() == null;
+			if(this.heros.getSalle().getOuest() == null) return false;
+			return this.heros.getSalle().getOuest().getEst() == null;
 		case SUD:
-			return this.heros.getSalle().getEst().getSud() == null;
+			if(this.heros.getSalle().getSud() == null) return false;
+			return this.heros.getSalle().getSud().getNord() == null;
 		}
 		return false;
 	}
@@ -202,6 +206,16 @@ public class DonjonController {
 			this.heros.setSalle(this.heros.getSalle().getSud());
 			break;
 		}
+	}
+
+	public boolean estCombatDisponible() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean estTerminer() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

@@ -65,7 +65,7 @@ public class SalleDonjonVue {
 			direction = -1;
 		}
 		if (this.controleur.estUnidirectionelle(direction)) {
-			println("§fOh non ! Vous êtes tombé dans un §ctrou§f, vous ne pouvez pas revenir en arrière");
+			println("§l§c! Oh non ! Vous êtes tombé dans un trou, vous ne pouvez pas revenir en arrière !§r");
 		}
 		this.controleur.changerSalle(direction);
 	}
