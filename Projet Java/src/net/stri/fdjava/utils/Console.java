@@ -19,6 +19,17 @@ public final class Console {
 	 * @param text
 	 * @date 16/04/2021
 	 */
+	public static void print(String text) {
+		System.out.print(Colour.transform(text));
+	}
+	
+	/**
+	 * 
+	 * @author Fabien CAYRE (Computer)
+	 *
+	 * @param text
+	 * @date 16/04/2021
+	 */
 	public static void println(String text) {
 		System.out.println(Colour.transform(text));
 	}
@@ -37,6 +48,7 @@ public final class Console {
 	}
 	
 	public static void vider() {
+		scanner.reset();
 		demanderChaine();
 	}
 	
