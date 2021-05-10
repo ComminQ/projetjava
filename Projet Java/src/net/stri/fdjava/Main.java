@@ -17,22 +17,44 @@ public class Main {
 		SalleDonjonVue vue = new SalleDonjonVue(controleur);
 
 		vue.afficherEntree();
+		
+		
 		boolean estTermine = false;
+		boolean aGagne = false;
+		
+		
 		while (!estTermine) {
 			vue.selectionnerSalle();
 			if (controleur.estCombatDisponible()) {
+				controleur.demarrerCombat();
 				CombatControleur combatControl = new CombatControleur(heros, controleur);
 				CombatVue combatVue = new CombatVue(combatControl);
 				while(!combatControl.estTermine()) {
 					// Le tour commence par le héros
 					combatVue.attaqueHeros();
+					// On doit vérifier si l'utlisateur veut fuir
+					if(combatVue.isFuir()) {
+						break;
+					}
 					// C'est au tour du monstre d'attaquer
 					combatVue.attaqueMonstre();
 					if(!heros.estEnVie()) {
 						// Si le héros est mort lors de l'attaque du monstre, la partie est terminé
+						combatVue.herosMort();
 						estTermine = true;
-					}else {
 					}
+				}
+				if(combatVue.isFuir()) {
+					// le combat est fuit, il faut changer de salle vers la salle prédècente
+					// on supprime le combat
+					controleur.setCombatActuel(null);
+					// on déplace dans l'ancienne salle
+					controleur.getHeros().setSalle(controleur.getHeros().getSallePrecedente());
+				}
+				combatVue.afficherFinCombat();
+				if(combatControl.estTermine()) {
+					// On supprime le combat
+					controleur.setCombatActuel(null);
 				}
 			}
 			
@@ -41,7 +63,11 @@ public class Main {
 				// On demande alors au contrôleur du donjon de savoir l'état de la partie
 				estTermine = controleur.estTerminer();
 			}
+			if(estTermine) {
+				break;
+			}
 		}
+		
 	}
 
 }

@@ -30,6 +30,10 @@ public class Heros extends Entity {
 	@Getter
 	@Setter
 	private Salle salle;
+	
+	@Getter
+	@Setter
+	private Salle sallePrecedente;
 
 	public Heros(String nom, int ptsVie, int ptsForce) {
 		super(nom, ptsVie, ptsForce);
@@ -42,6 +46,11 @@ public class Heros extends Entity {
 	public Heros(int ptsVie, int ptsForce) {
 		super("_none", ptsVie, ptsForce);
 	}
+	
+	public int getArmureTotal() {
+		return 0;
+	}
+	
 
 	@Override
 	public String toString() {

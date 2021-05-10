@@ -1,10 +1,17 @@
 package net.stri.fdjava.controllers;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import lombok.Getter;
+import lombok.Setter;
 import net.stri.fdjava.models.entity.Heros;
+import net.stri.fdjava.models.entity.Monstre;
+import net.stri.fdjava.models.entity.monstre.MortVivant;
+import net.stri.fdjava.models.world.Combat;
 import net.stri.fdjava.models.world.Salle;
 import net.stri.fdjava.views.Direction;
 
@@ -19,14 +26,17 @@ import net.stri.fdjava.views.Direction;
  */
 public class DonjonController {
 
-	private List<Salle> salles;
 	private Salle entree;
 	private Salle sortie;
+	@Getter
 	private Heros heros;
+	@Getter @Setter
+	private Combat combatActuel;
+	private int tour;
 
 	public DonjonController(Heros heros) {
-		this.salles = new ArrayList<>();
 		this.heros = heros;
+		this.tour = 0;
 		this.genererDonjon();
 	}
 
@@ -102,6 +112,8 @@ public class DonjonController {
 	 * Sur ces index si la valeur est à false, il est impossible d'utiliser la porte
 	 * pour aller dans la salle à la direction spécifiée
 	 * 
+	 * S'il y a un combat, le joueur ne peut changer de salle
+	 * 
 	 * @author Fabien CAYRE (Computer)
 	 *
 	 * @return
@@ -110,6 +122,7 @@ public class DonjonController {
 	public boolean[] getSalleDisponible() {
 		boolean[] salles = new boolean[4];
 		Arrays.fill(salles, false);
+		if(this.combatActuel != null) return salles;
 		if (this.heros.getSalle().getNord() != null) {
 			salles[0] = true;
 		}
@@ -127,6 +140,8 @@ public class DonjonController {
 
 	/**
 	 * Vérifie si le joueur peut accèder à une direction par rapport à sa salle actuelle
+	 * 
+	 * S'il y a un combat, le joueur ne peut changer de salle
 	 * @author Fabien CAYRE (Computer)
 	 *
 	 * @param direction
@@ -134,6 +149,7 @@ public class DonjonController {
 	 * @date 02/05/2021
 	 */
 	public boolean estDisponible(int direction) {
+		if(this.combatActuel != null) return false;
 		if(direction == -1)return false;
 		Direction dir = Direction.getForDonjon(direction);
 		switch(dir) {
@@ -192,6 +208,7 @@ public class DonjonController {
 	public void changerSalle(int direction) {
 		if(direction == -1) return;
 		Direction dir = Direction.getForDonjon(direction);
+		this.heros.setSallePrecedente(this.heros.getSalle());
 		switch(dir) {
 		case EST:
 			this.heros.setSalle(this.heros.getSalle().getEst());
@@ -207,12 +224,77 @@ public class DonjonController {
 			break;
 		}
 	}
-
-	public boolean estCombatDisponible() {
-		// TODO Auto-generated method stub
-		return false;
+	
+	/**
+	 * Augmenter le tour actuel de 1
+	 * @author Fabien CAYRE (Computer)
+	 *
+	 * @date 07/05/2021
+	 */
+	public void augmenterTour() {
+		this.tour++;
 	}
 
+	/**
+	 * Un combat est disponible quand le joueur est dans la salle
+	 * et que la différence entre le tour actuel et le tour dans lequel le joueur est rentré dans cette salle
+	 * est supérieur à 2 ou que ce joueur n'est jamais rentré dans la salle
+	 * 
+	 * Si un combat est en cours, il ne peut avoir un combat de disponible
+	 * @author Fabien CAYRE (Computer)
+	 *
+	 * @return
+	 * @date 07/05/2021
+	 */
+	public boolean estCombatDisponible() {
+		if(this.combatActuel != null) return false;
+		Salle salleActuelle = this.heros.getSalle();
+		// Si c'est l'entrée : pas de combat
+		if(salleActuelle == this.entree) return false;
+		return salleActuelle.getRentrerTour() == -1 || salleActuelle.getRentrerTour() + 2 < this.tour;
+	}
+	
+	/**
+	 * Le combat commence entre un héros et de 1 à 3 monstres
+	 * Il y a 50% de chance pour que le joueur tombe avec 1 monstre
+	 * Il y a 30% de chance pour que le joueur tombe avec 2 monstres
+	 * Il y a 20% de chance pour que le joueur tombe avec 3 monstres
+	 * @author Fabien CAYRE (Computer)
+	 *
+	 * @date 07/05/2021
+	 */
+	public void demarrerCombat() {
+		float random = 0;
+		try {
+			random = SecureRandom.getInstanceStrong().nextFloat();
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+		int nbMonstre = -1;
+		if(random < 0.5) {
+			//50% de chances
+			nbMonstre = 1;
+		}else if (random >= 0.5 && random < 0.8) {
+			nbMonstre = 2;
+		}else if (random >= 0.8 && random <= 1) {
+			nbMonstre = 3;
+		}
+		List<Monstre> monstres = new ArrayList<>();
+		for(int i = 0; i < nbMonstre; i++) {
+			monstres.add(new MortVivant());
+		}
+		 
+		Combat combat = new Combat(heros, monstres);
+		this.combatActuel = combat;
+	}
+
+	/**
+	 * Vérifie que le donjon est terminé
+	 * @author Fabien CAYRE (Computer)
+	 *
+	 * @return
+	 * @date 07/05/2021
+	 */
 	public boolean estTerminer() {
 		// TODO Auto-generated method stub
 		return false;

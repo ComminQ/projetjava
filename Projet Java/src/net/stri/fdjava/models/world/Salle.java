@@ -31,6 +31,9 @@ public class Salle implements Serializable {
 	private Salle ouest;
 	@Getter @Setter
 	private String name;
+	@Getter @Setter
+	private int rentrerTour = -1;
+	
 	
 	/**
 	 * Le constructeur

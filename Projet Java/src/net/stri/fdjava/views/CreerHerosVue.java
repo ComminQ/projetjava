@@ -27,7 +27,7 @@ public class CreerHerosVue {
 			println("§fVeuillez saisir le type de votre §eHeros§r!");
 			println("§fVous pouvez choisir parmis :");
 			for(TypeHeros typeHeros : TypeHeros.values()) {
-				println(String.format("\t§e%s §f: §c%d point de dégats§f, §a%d point de vie §f(tapez %d)", typeHeros.toString(), typeHeros.getDegat(), typeHeros.getPointDeVie(), typeHeros.ordinal()));
+				println(String.format("§f-§e %s §f: §c%d point de dégats§f, §a%d point de vie §f(tapez %d)", typeHeros.toString(), typeHeros.getDegat(), typeHeros.getPointDeVie(), typeHeros.ordinal()));
 			}
 			try {
 				index = Console.demanderEntier();

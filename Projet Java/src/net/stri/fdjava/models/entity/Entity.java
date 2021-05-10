@@ -7,6 +7,7 @@ import java.util.Map;
 import lombok.Getter;
 import lombok.Setter;
 import net.stri.fdjava.models.item.Item;
+import net.stri.fdjava.models.item.TypeItem;
 import net.stri.fdjava.models.item.properties.ProprietesOffensive;
 
 /**
@@ -71,11 +72,69 @@ public abstract class Entity implements Serializable {
 	 * @author Fabien CAYRE (Computer)
 	 *
 	 * @param entity
+	 * @returns Les dégats infligé
 	 * @date 30/04/2021
 	 */
-	public void attaquer(Entity entity) {
+	public int attaquer(Entity entity) {
 		// TODO appliquer les dégats en fonction, des points de vie, de la force, des
 		// items de chaque coté
+		int totalDamage = getDegatTotal();
+
+		// Calcul armure (réduction des dégats)
+		totalDamage -= getTotalArmure();
+		
+		if(totalDamage > 0) {
+			entity.setPtsVie(entity.getPtsVie() - totalDamage);
+		}
+		return totalDamage;
+	}
+
+	/**
+	 * Renvoie les points de dégats totaux
+	 * 
+	 * @author Fabien CAYRE (Computer)
+	 *
+	 * @return
+	 * @date 07/05/2021
+	 */
+	public int getDegatTotal() {
+		int totalDamage = this.ptsForce;
+		// Applications des items dégats
+		if (this.equipement.containsKey(Emplacement.MAIN)) {
+			Item item = this.equipement.get(Emplacement.MAIN);
+			if (item.getType() == TypeItem.EPEE) {
+				ProprietesOffensive props = (ProprietesOffensive) item.getProprietesItem();
+				totalDamage += props.getPtsForce();
+			}
+		}
+		return totalDamage;
+	}
+
+	/**
+	 * Renvoie les points d'armures totaux
+	 * @author Fabien CAYRE (Computer)
+	 *
+	 * @return
+	 * @date 07/05/2021
+	 */
+	public int getTotalArmure() {
+		int totalArmure = 0;
+		// Applications des items deffensif
+		if (this.equipement.containsKey(Emplacement.BUSTE)) {
+			Item item = this.equipement.get(Emplacement.BUSTE);
+			if (item.getType() == TypeItem.ARMURE) {
+				ProprietesOffensive props = (ProprietesOffensive) item.getProprietesItem();
+				totalArmure += props.getPtsForce();
+			}
+		}
+		if (this.equipement.containsKey(Emplacement.TETE)) {
+			Item item = this.equipement.get(Emplacement.TETE);
+			if (item.getType() == TypeItem.ARMURE) {
+				ProprietesOffensive props = (ProprietesOffensive) item.getProprietesItem();
+				totalArmure += props.getPtsForce();
+			}
+		}
+		return totalArmure;
 	}
 
 	/**
