@@ -1,6 +1,7 @@
 package net.stri.fdjava.models.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Getter;
@@ -16,6 +17,8 @@ import net.stri.fdjava.models.item.Item;
  */
 public class Inventaire implements Serializable {
 
+	private static final int DEFAULT_SIZE = 9;
+	
 	/**
 	 * @author Fabien CAYRE (Computer)
 	 *
@@ -27,7 +30,36 @@ public class Inventaire implements Serializable {
 	@Getter
 	private int maxItem;
 	
+	public Inventaire() {
+		this(DEFAULT_SIZE);
+	}
+	
+	public Inventaire(int maxItem) {
+		this.maxItem = maxItem;
+		this.item = new ArrayList<>(maxItem);
+	}
+
 	
 	//TODO reste a faire : tout
+	
+	
+	public boolean ajouterObjet(Item item) {
+		
+	}
+	
+	public boolean retirerObjet(Item item) {
+		
+	}
+	
+	public void vider() {
+		
+	}
+	
+	public Item getObjet(int index) {
+		return null;
+	}
+	
+	
+	
 
 }
