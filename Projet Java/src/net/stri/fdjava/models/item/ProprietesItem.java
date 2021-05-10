@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Getter;
+import lombok.Setter;
 import net.stri.fdjava.utils.CC;
 
 /**
@@ -18,7 +19,7 @@ import net.stri.fdjava.utils.CC;
  *
  * @date 30/04/2021
  */
-public class ProprietesItem implements Serializable {
+public class ProprietesItem implements Serializable, Cloneable {
 	
 	/**
 	 * @author Fabien CAYRE (Computer)
@@ -28,11 +29,11 @@ public class ProprietesItem implements Serializable {
 	private static final long serialVersionUID = -967720215441886950L;
 	
 	
-	@Getter
+	@Getter @Setter
 	protected String nom;
-	@Getter
+	@Getter @Setter
 	protected List<String> description;
-	@Getter
+	@Getter @Setter
 	protected String couleur;
 
 	public ProprietesItem() {
@@ -51,4 +52,38 @@ public class ProprietesItem implements Serializable {
 		this.couleur = CC.CYAN;
 		this.description = new ArrayList<>();
 	}
+	
+	@Override
+	public ProprietesItem clone() {
+		try {
+			ProprietesItem props = (ProprietesItem) super.clone();
+			return props;
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((nom == null) ? 0 : nom.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+		if (obj == null) return false;
+		if (getClass() != obj.getClass()) return false;
+		ProprietesItem other = (ProprietesItem) obj;
+		if (nom == null) {
+			if (other.nom != null) return false;
+		} else if (!nom.equals(other.nom)) return false;
+		return true;
+	}
+	
+	
+	
 }

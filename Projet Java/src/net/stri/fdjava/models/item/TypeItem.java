@@ -17,7 +17,6 @@ public enum TypeItem {
 	CASQUE("Casque", 1, ProprietesOffensive.class),
 	ARMURE("Armure", 1, ProprietesOffensive.class),
 	EPEE("Epee", 1, ProprietesOffensive.class),
-	PIECE("Piece", 1, ProprietesItem.class),
 	BUTIN("Butin", 3, ProprietesButin.class);
 
 	@Getter

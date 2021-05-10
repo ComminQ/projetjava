@@ -1,6 +1,7 @@
 package net.stri.fdjava.models.item;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -11,7 +12,7 @@ import lombok.Setter;
  *
  * @date 30/04/2021
  */
-public class Item implements Serializable  {
+public class Item implements Serializable, Cloneable  {
 
 	/**
 	 * @author Fabien CAYRE (Computer)
@@ -43,6 +44,36 @@ public class Item implements Serializable  {
 		}
 		this.quantite = quantite;
 	}
+	
+	@Override
+	public Item clone() {
+		try {
+			Item item = (Item) super.clone();
+			item.proprietesItem = item.proprietesItem.clone();
+			return item;
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(proprietesItem, quantite, type);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (!(obj instanceof Item)) {
+			return false;
+		}
+		Item other = (Item) obj;
+		return Objects.equals(proprietesItem, other.proprietesItem) && quantite == other.quantite && type == other.type;
+	}
+	
 	
 	
 	
