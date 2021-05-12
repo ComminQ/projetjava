@@ -42,8 +42,6 @@ public class Inventaire implements Serializable {
 		this.item = new ArrayList<>(maxItem);
 	}
 
-	// TODO reste a faire : tout
-
 	public boolean ajouterObjet(Item item) {
 		if (this.item.size() >= maxItem) return false;
 		int amount = item.getQuantite();
@@ -77,15 +75,18 @@ public class Inventaire implements Serializable {
 			}
 			return true;
 		}
-
 	}
 
 	public boolean retirerObjet(Item item) {
-
+		int quantityToRemove = item.getQuantite();
+		TypeItem type = item.getType();
+		
+		
+		return false;
 	}
 
-	public boolean retirerObjet(int index) {
-
+	public void retirerObjet(int index) {
+		this.item.remove(index);
 	}
 
 	/**
