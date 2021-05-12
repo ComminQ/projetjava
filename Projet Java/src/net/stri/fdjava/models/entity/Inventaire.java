@@ -20,7 +20,7 @@ import net.stri.fdjava.models.item.TypeItem;
  */
 public class Inventaire implements Serializable {
 
-	private static final int DEFAULT_SIZE = 9;
+	public static final int DEFAULT_SIZE = 9;
 
 	/**
 	 * @author Fabien CAYRE (Computer)
@@ -46,43 +46,61 @@ public class Inventaire implements Serializable {
 		if (this.item.size() >= maxItem) return false;
 		int amount = item.getQuantite();
 		final int maxQuantity = item.getType().getQuantiteMax();
-		
+
 		List<Integer> list = indexDeType(item.getType(), true);
-		if(list.size() == 0) {
+		if (list.size() == 0) {
 			this.item.add(item);
 			return true;
-		}else {
-			for(int index : list) {
+		} else {
+			for (int index : list) {
 				Item currItem = this.item.get(index);
 				int currAmount = currItem.getQuantite();
 				int diffAmount = maxQuantity - currAmount;
-				
-				if(diffAmount > amount) {
+
+				if (diffAmount >= amount) {
 					currAmount += amount;
 					amount = 0;
 					currItem.setQuantite(currAmount);
-				}else {
+				} else {
 					currAmount += diffAmount;
 					amount -= diffAmount;
 					currItem.setQuantite(currAmount);
-					if(amount == 0) {
+					if (amount == 0) {
 						break;
 					}
 				}
 			}
-			if(amount > 0) {
+			if (amount > 0) {
 				item.setQuantite(amount);
+				this.item.add(item);
 			}
 			return true;
 		}
 	}
 
 	public boolean retirerObjet(Item item) {
-		int quantityToRemove = item.getQuantite();
-		TypeItem type = item.getType();
+		int amount = item.getQuantite();
+
+		List<Integer> list = indexDeType(item.getType(), false);
+		List<Item> toRemove = new ArrayList<>();
 		
-		
-		return false;
+		for (int index : list) {
+			Item currItem = this.item.get(index);
+			int currAmount = currItem.getQuantite();
+			
+			int sub = currAmount - amount;
+			if(sub <= 0) {
+				sub = currAmount;
+				toRemove.add(currItem);
+			}
+			amount -= sub;
+			currItem.setQuantite(sub);
+		}
+
+		for(Item torem : toRemove) {
+			this.item.remove(torem);
+		}
+		return true;
 	}
 
 	public void retirerObjet(int index) {
@@ -104,12 +122,23 @@ public class Inventaire implements Serializable {
 			.filter(i -> {
 				if (item.get(i) == null) return false;
 				if (item.get(i).getType() != type) return false;
-				return ignoreWhenFull ? item.get(i).getQuantite() == type.getQuantiteMax() : true;
+				return ignoreWhenFull ? !(item.get(i).getQuantite() == type.getQuantiteMax()) : true;
 			})
 			.boxed()
 			.collect(Collectors.toList());
 	}
 
+	public int quantite(TypeItem typeItem) {
+		return this.item.stream()
+				.filter(item -> item.getType() == typeItem)
+				.mapToInt(Item::getQuantite)
+				.sum();
+	}
+	
+	public int taille() {
+		return this.item.size();
+	}
+	
 	public void vider() {
 		this.item.clear();
 	}

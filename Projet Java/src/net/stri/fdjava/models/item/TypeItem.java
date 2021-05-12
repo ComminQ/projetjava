@@ -17,7 +17,8 @@ public enum TypeItem {
 	CASQUE("Casque", 1, ProprietesOffensive.class),
 	ARMURE("Armure", 1, ProprietesOffensive.class),
 	EPEE("Epee", 1, ProprietesOffensive.class),
-	BUTIN("Butin", 3, ProprietesButin.class);
+	BUTIN("Butin", 3, ProprietesButin.class),
+	TEST("Test", 1000, ProprietesItem.class);
 
 	@Getter
 	private String nom;
