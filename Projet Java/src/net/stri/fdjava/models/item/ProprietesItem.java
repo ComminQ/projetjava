@@ -53,6 +53,10 @@ public class ProprietesItem implements Serializable, Cloneable {
 		this.description = new ArrayList<>();
 	}
 	
+	public String afficherProps() {
+		return this.couleur + this.nom+"§r";
+	}
+	
 	@Override
 	public ProprietesItem clone() {
 		try {

@@ -26,4 +26,9 @@ public class ProprietesOffensive extends ProprietesItem{
 		super();
 	}
 	
+	@Override
+	public String afficherProps() {
+		return super.afficherProps()+" | §bPoints d'attaque/défense: "+ptsForce;
+	}
+	
 }
