@@ -1,5 +1,6 @@
 package net.stri.fdjava.models.item.properties;
 
+import java.io.Serializable;
 import java.util.List;
 
 import net.stri.fdjava.models.item.Item;
@@ -12,7 +13,7 @@ import net.stri.fdjava.utils.CC;
  *
  * @date 30/04/2021
  */
-public class ProprietesButin extends ProprietesItem{
+public class ProprietesButin extends ProprietesItem implements Serializable{
 
 	/**
 	 * @author Fabien CAYRE (Computer)

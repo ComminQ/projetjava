@@ -1,5 +1,7 @@
 package net.stri.fdjava.models.item.properties;
 
+import java.io.Serializable;
+
 import lombok.Getter;
 import lombok.Setter;
 import net.stri.fdjava.models.item.ProprietesItem;
@@ -10,7 +12,7 @@ import net.stri.fdjava.models.item.ProprietesItem;
  *
  * @date 30/04/2021
  */
-public class ProprietesOffensive extends ProprietesItem{
+public class ProprietesOffensive extends ProprietesItem implements Serializable{
 
 	/**
 	 * @author Fabien CAYRE (Computer)

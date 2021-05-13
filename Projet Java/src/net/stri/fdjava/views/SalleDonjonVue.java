@@ -35,7 +35,7 @@ public class SalleDonjonVue {
 		controleur.entrer();
 	}
 
-	public void selectionnerSalle() {
+	public boolean selectionnerSalle() {
 		boolean[] sallesDisponibles = this.controleur.getSalleDisponible();
 		String affichageDesSalles = DISPLAY_ROOM;
 		for (int i = 0; i < 4; i++) {
@@ -54,12 +54,16 @@ public class SalleDonjonVue {
 		choix += "Bloqué (B)";
 
 		println("§dChoix des directions : §f" + choix);
+		println("§dOuvrir l'inventaire: §f"+Direction.values().length);
 		int direction = -1;
 		while (!this.controleur.estDisponible(direction)) {
-			while (direction < 0 || direction >= Direction.values().length) {
+			while (direction < 0 || direction > Direction.values().length) {
 				direction = Console.demanderEntier();
 			}
 			if (this.controleur.estDisponible(direction)) break;
+			if (direction == Direction.values().length) {
+				return true;
+			}
 			println("§cCette direction n'est pas disponible");
 			println("§fEcrivez le numéro de la direction : ");
 			direction = -1;
@@ -68,6 +72,7 @@ public class SalleDonjonVue {
 			println("§l§c! Oh non ! Vous êtes tombé dans un trou, vous ne pouvez pas revenir en arrière !§r");
 		}
 		this.controleur.changerSalle(direction);
+		return false;
 	}
 
 }

@@ -150,7 +150,8 @@ public class DonjonController {
 	 */
 	public boolean estDisponible(int direction) {
 		if(this.combatActuel != null) return false;
-		if(direction == -1)return false;
+		if(direction < 0)return false;
+		if(direction >= Direction.values().length) return false;
 		Direction dir = Direction.getForDonjon(direction);
 		switch(dir) {
 		case EST:
@@ -177,7 +178,8 @@ public class DonjonController {
 	 * @date 02/05/2021
 	 */
 	public boolean estUnidirectionelle(int direction) {
-		if(direction == -1)return false;
+		if(direction < 0)return false;
+		if(direction >= Direction.values().length) return false;
 		Direction dir = Direction.getForDonjon(direction);
 		boolean estDispo = estDisponible(direction);
 		if(!estDispo) return false;
@@ -206,7 +208,8 @@ public class DonjonController {
 	 * @date 02/05/2021
 	 */
 	public void changerSalle(int direction) {
-		if(direction == -1) return;
+		if(direction < 0)return;
+		if(direction >= Direction.values().length) return;
 		Direction dir = Direction.getForDonjon(direction);
 		this.heros.setSallePrecedente(this.heros.getSalle());
 		switch(dir) {

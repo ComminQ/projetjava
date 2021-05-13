@@ -1,5 +1,7 @@
 package net.stri.fdjava.models.entity;
 
+import lombok.Getter;
+
 /**
  * Emplacement de l'équipement du joueur pour les items OFFENSIF
  * et pour les calculs de dégats
@@ -9,9 +11,18 @@ package net.stri.fdjava.models.entity;
  */
 public enum Emplacement {
 
-	TETE,
-	BUSTE,
-	MAIN;
+	TETE("Tête"),
+	BUSTE("Corps"),
+	MAIN("Main");
+	
+	
+	@Getter
+	private String name;
+
+	private Emplacement(String name) {
+		this.name = name;
+	}
+	
 	
 	
 	

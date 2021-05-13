@@ -1,5 +1,7 @@
 package net.stri.fdjava.models.entity;
 
+import java.io.Serializable;
+
 import lombok.Getter;
 import lombok.Setter;
 import net.stri.fdjava.models.world.Salle;
@@ -10,7 +12,7 @@ import net.stri.fdjava.models.world.Salle;
  *
  * @date 30/04/2021
  */
-public class Heros extends Entity {
+public class Heros extends Entity implements Serializable {
 
 	/**
 	 * @author Fabien CAYRE (Computer)
@@ -37,6 +39,7 @@ public class Heros extends Entity {
 
 	public Heros(String nom, int ptsVie, int ptsForce) {
 		super(nom, ptsVie, ptsForce);
+		this.inventaire = new Inventaire();
 	}
 
 	public Heros(TypeHeros typeHeros) {
@@ -44,7 +47,7 @@ public class Heros extends Entity {
 	}
 
 	public Heros(int ptsVie, int ptsForce) {
-		super("_none", ptsVie, ptsForce);
+		this("_none", ptsVie, ptsForce);
 	}
 	
 	public int getArmureTotal() {

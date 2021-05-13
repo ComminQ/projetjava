@@ -24,7 +24,7 @@ public enum TypeItem {
 	private String nom;
 	@Getter
 	private int quantiteMax;
-	
+	@Getter
 	private Class<? extends ProprietesItem> propriete;
 
 	/**

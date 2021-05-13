@@ -146,9 +146,9 @@ public abstract class Entity implements Serializable {
 	 * @param item
 	 * @date 13/04/2021
 	 */
-	public void setEquipement(Emplacement emplacement, Item item) {
+	public Item setEquipement(Emplacement emplacement, Item item) {
 		if (item.getProprietesItem() instanceof ProprietesOffensive) {
-			this.equipement.put(emplacement, item);
+			return this.equipement.put(emplacement, item);
 		} else {
 			throw new IllegalArgumentException("L'item pour le slot " + emplacement + " n'est pas un équipement d'armure.");
 		}

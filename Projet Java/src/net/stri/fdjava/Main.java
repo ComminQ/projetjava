@@ -2,10 +2,12 @@ package net.stri.fdjava;
 
 import net.stri.fdjava.controllers.CombatControleur;
 import net.stri.fdjava.controllers.DonjonController;
+import net.stri.fdjava.controllers.InventaireController;
 import net.stri.fdjava.models.entity.Heros;
 import net.stri.fdjava.test.RawCreerHerosControllerTest;
 import net.stri.fdjava.utils.Console;
 import net.stri.fdjava.views.CombatVue;
+import net.stri.fdjava.views.InventaireVue;
 import net.stri.fdjava.views.SalleDonjonVue;
 
 public class Main {
@@ -24,7 +26,13 @@ public class Main {
 		
 		
 		while (!estTermine) {
-			vue.selectionnerSalle();
+			boolean ouvrirInventaire = vue.selectionnerSalle();
+			if(ouvrirInventaire) {
+				InventaireController controleurInv = new InventaireController(heros); 
+				InventaireVue inventaireVue = new InventaireVue(controleurInv);
+				inventaireVue.utiliserInventaire();
+				continue;
+			}
 			if (controleur.estCombatDisponible()) {
 				controleur.demarrerCombat();
 				CombatControleur combatControl = new CombatControleur(heros, controleur);
