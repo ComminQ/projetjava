@@ -59,9 +59,10 @@ public class SalleDonjonVue {
 		println("§dChoix des directions : §f" + choix);
 		println("§dOuvrir l'inventaire: §f"+Direction.values().length);
 		println("§dOuvrir la boutique: §f"+(Direction.values().length + 1));
+		println("§dQuitter la partie: §f"+(Direction.values().length + 2));
 		int direction = -1;
 		while (!this.controleur.estDisponible(direction)) {
-			while (direction < 0 || direction > Direction.values().length+1) {
+			while (direction < 0 || direction > Direction.values().length+2) {
 				direction = Console.demanderEntier();
 			}
 			if (this.controleur.estDisponible(direction)) break;
@@ -77,6 +78,12 @@ public class SalleDonjonVue {
 				BoutiqueController controleurBoutique = new BoutiqueController(controleur);
 				BoutiqueVue boutiqueVue = new BoutiqueVue(controleurBoutique);
 				boutiqueVue.utiliserBoutique();
+				return true;
+			}
+			if(direction == Direction.values().length + 2) {
+				// Quitter le jeu
+				controleur.quitterJeu();
+				controleur.sauvegarde();
 				return true;
 			}
 			println("§cCette direction n'est pas disponible");

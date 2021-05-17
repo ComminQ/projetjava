@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
 
 public class Fichier {
@@ -19,10 +20,9 @@ public class Fichier {
 	 * @return
 	 * @date 03/05/2021
 	 */
-	public static List<File> listerFichier(String dossier){
-		//TODO
-		
-		return null;
+	public static List<String> listerFichier(String dossier){
+		File file = new File(dossier);
+		return Arrays.asList(file.list());
 	}
 	
 	/**
@@ -71,6 +71,10 @@ public class Fichier {
 		ObjectInputStream in = new ObjectInputStream(fileIn);
 		// On lit l'objet
 		T data = (T) in.readObject();
+		if(data == null) {
+			in.close();
+			throw new IOException("Aucune donnée objet dans "+fichier);
+		}
 		// On ferme le flux
 		in.close();
 		return data;
@@ -89,12 +93,16 @@ public class Fichier {
 	public static <T extends Serializable> void ecrireDonnees(String fichier, T donnee) throws IOException {
 		File file = new File(fichier);
 		// le fichier n'existe pas
-		if(!file.exists())return;
+		if(!file.exists()) {
+			throw new IOException("Le fichier n'existe pas "+fichier+".");
+		}
 		// On ouvre le buffer d'objet sur le fichier
 		FileOutputStream fileOut = new FileOutputStream(file);
 		ObjectOutputStream out = new ObjectOutputStream(fileOut);
 		// On écrit l'objet
 		out.writeObject(donnee);
+		// On flush
+		out.flush();
 		// On ferme le flux
 		out.close();
 	}

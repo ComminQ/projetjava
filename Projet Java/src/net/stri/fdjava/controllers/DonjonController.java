@@ -1,5 +1,6 @@
 package net.stri.fdjava.controllers;
 
+import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
+import net.stri.fdjava.models.Sauvegarde;
 import net.stri.fdjava.models.entity.Emplacement;
 import net.stri.fdjava.models.entity.Heros;
 import net.stri.fdjava.models.entity.Monstre;
@@ -37,13 +39,23 @@ public class DonjonController {
 	@Setter
 	private Combat combatActuel;
 	private int tour;
+	@Getter
+	private boolean quitterJeu;
 
+
+	public DonjonController(Sauvegarde sauvegarde) {
+		this.sortie = sauvegarde.getSortie();
+		this.entree = sauvegarde.getEntree();
+		this.heros = sauvegarde.getHeros();
+		this.tour = sauvegarde.getTour();
+	}
+	
 	public DonjonController(Heros heros) {
 		this.heros = heros;
 		this.tour = 0;
 		this.genererDonjon();
 	}
-
+	
 	/**
 	 * Fait rentrer le héros dans le donjon, donc dans la salle principale
 	 * 
@@ -334,6 +346,21 @@ public class DonjonController {
 	public void remplirVieHeros() {
 		this.heros.setPtsVie(this.heros.getMaxVie());
 
+	}
+
+	public void quitterJeu() {
+		this.quitterJeu = true;
+	}
+
+	public void sauvegarde() {
+		// Sauvegarde
+		Sauvegarde sauvegarde = new Sauvegarde(heros, new ArrayList<>(), entree, sortie);
+		try {
+			Sauvegarde.sauvegarder(sauvegarde);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 }

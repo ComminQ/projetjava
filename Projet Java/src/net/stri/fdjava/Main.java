@@ -3,11 +3,14 @@ package net.stri.fdjava;
 
 import static net.stri.fdjava.utils.Console.println;
 
+import net.stri.fdjava.controllers.ChargerSauvegardeController;
 import net.stri.fdjava.controllers.CombatControleur;
 import net.stri.fdjava.controllers.DonjonController;
+import net.stri.fdjava.models.Sauvegarde;
 import net.stri.fdjava.models.entity.Heros;
 import net.stri.fdjava.test.RawCreerHerosControllerTest;
 import net.stri.fdjava.utils.Console;
+import net.stri.fdjava.views.ChargerSauvegardeVue;
 import net.stri.fdjava.views.CombatVue;
 import net.stri.fdjava.views.SalleDonjonVue;
 
@@ -15,11 +18,29 @@ public class Main {
 
 	public static void main(String[] args) {
 		Console.nettoyerEcran();
-		Heros heros = RawCreerHerosControllerTest.creerHeros();
-		DonjonController controleur = new DonjonController(heros);
-		SalleDonjonVue vue = new SalleDonjonVue(controleur);
-
-		vue.afficherEntree();
+		ChargerSauvegardeController saveControleur = new ChargerSauvegardeController();
+		ChargerSauvegardeVue saveVue = new ChargerSauvegardeVue(saveControleur);
+		Sauvegarde save = saveVue.chargerSauvegarder();
+		
+		Heros heros = null;
+		DonjonController controleur = null;
+		SalleDonjonVue vue = null;
+		if(save == null) {
+			println("§aCréation d'une nouvelle partie...");
+			// On créer une nouvelle partie
+			heros = RawCreerHerosControllerTest.creerHeros();
+			controleur = new DonjonController(heros);
+			vue = new SalleDonjonVue(controleur);
+			vue.afficherEntree();
+		}else {
+			println("§aChargement d'une partie...");
+			// On charge une partie
+			heros = save.getHeros();
+			controleur = new DonjonController(save);
+			vue = new SalleDonjonVue(controleur);
+		}
+		
+		
 		
 		boolean estTermine = false;
 		boolean aGagne = false;
@@ -28,6 +49,9 @@ public class Main {
 		while (!estTermine) {
 			boolean retourBoucle = vue.selectionnerSalle();
 			if(retourBoucle) {
+				if(controleur.isQuitterJeu()) {
+					break;
+				}
 				Console.nettoyerEcran();
 				continue;
 			}
@@ -85,6 +109,12 @@ public class Main {
 			}
 			Console.nettoyerEcran();
 		}
+		if(aGagne && !estTermine) {
+			println("");
+			println("");
+			println("§cVotre partie à été sauvegardée ");
+		}
+		
 		
 		if(aGagne) {
 			println("");

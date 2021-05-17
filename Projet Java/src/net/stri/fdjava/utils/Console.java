@@ -20,7 +20,7 @@ public final class Console {
 	 * @date 16/04/2021
 	 */
 	public static void print(String text) {
-		System.out.print(Colour.transform(text));
+		System.out.print(Colour.transform(text+"§f"));
 	}
 
 	/**
@@ -31,7 +31,7 @@ public final class Console {
 	 * @date 16/04/2021
 	 */
 	public static void println(String text) {
-		System.out.println(Colour.transform(text));
+		System.out.println(Colour.transform(text+"§f"));
 	}
 
 	/**
