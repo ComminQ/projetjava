@@ -22,14 +22,17 @@ public class InventaireController {
 		String ret = "";
 		Inventaire inventaire = this.heros.getInventaire();
 
-		ret += "§eVotre inventaire contient: §f";
+		ret += "§eVotre inventaire contient: §f\n";
 		for (int i = 0; i < inventaire.getMaxItem(); i++) {
-			Item item = inventaire.getObjet(i);
+			Item item = null;
+			if(i < inventaire.taille()) {
+				item = inventaire.getObjet(i);
+			}
 			ret += "- (" + i + ") ";
 			if (item == null) {
 				ret += "Vide";
 			} else {
-				ret += item.getType().getNom() + " " + item.getProprietesItem().afficherProps();
+				ret += item.getType().getNom() + " " + item.getProprietesItem().afficherProps()+"§r";
 			}
 			ret += "\n";
 		}

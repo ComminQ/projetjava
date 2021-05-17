@@ -7,7 +7,7 @@ import net.stri.fdjava.models.entity.Monstre;
 public class Boss extends Monstre implements Serializable{
 
 	public Boss() {
-		super("Boss", 500, 50);
+		super("Boss", 350, 20);
 	}
 
 }

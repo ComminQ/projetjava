@@ -54,10 +54,6 @@ public class Heros extends Entity implements Serializable {
 		this("_none", ptsVie, ptsForce);
 	}
 	
-	public int getArmureTotal() {
-		return 0;
-	}
-	
 	public void ajouterPieceOr(int pieceOr) {
 		this.pieceOr += pieceOr;
 	}

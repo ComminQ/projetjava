@@ -46,6 +46,7 @@ public class SalleDonjonVue {
 					"%s",
 					sallesDisponibles[i] ? Direction.getForDonjon(i).getTag() : "B");
 		}
+		println(controleur.afficherStatistique());
 		println("§fVoici à quoi ressemble la salle dans la quelle vous vous trouvez :§r");
 		println("§e" + affichageDesSalles + "§r");
 		println("§fEntrez une direction pour rejoindre cette salle§r");

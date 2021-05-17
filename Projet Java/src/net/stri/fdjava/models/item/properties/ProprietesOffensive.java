@@ -30,7 +30,9 @@ public class ProprietesOffensive extends ProprietesItem implements Serializable{
 	
 	@Override
 	public String afficherProps() {
-		return super.afficherProps()+" | §bPoints d'attaque/défense: "+ptsForce;
+		return super.afficherProps()+", §bAT: "+ptsForce;
 	}
+	
+	
 	
 }

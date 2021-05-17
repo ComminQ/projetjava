@@ -8,12 +8,14 @@ import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
+import net.stri.fdjava.models.entity.Emplacement;
 import net.stri.fdjava.models.entity.Heros;
 import net.stri.fdjava.models.entity.Monstre;
 import net.stri.fdjava.models.entity.monstre.Boss;
 import net.stri.fdjava.models.entity.monstre.MortVivant;
 import net.stri.fdjava.models.world.Combat;
 import net.stri.fdjava.models.world.Salle;
+import net.stri.fdjava.utils.Nombre;
 import net.stri.fdjava.views.Direction;
 
 /**
@@ -31,7 +33,8 @@ public class DonjonController {
 	private Salle sortie;
 	@Getter
 	private Heros heros;
-	@Getter @Setter
+	@Getter
+	@Setter
 	private Combat combatActuel;
 	private int tour;
 
@@ -123,7 +126,7 @@ public class DonjonController {
 	public boolean[] getSalleDisponible() {
 		boolean[] salles = new boolean[4];
 		Arrays.fill(salles, false);
-		if(this.combatActuel != null) return salles;
+		if (this.combatActuel != null) return salles;
 		if (this.heros.getSalle().getNord() != null) {
 			salles[0] = true;
 		}
@@ -140,9 +143,11 @@ public class DonjonController {
 	}
 
 	/**
-	 * Vérifie si le joueur peut accèder à une direction par rapport à sa salle actuelle
+	 * Vérifie si le joueur peut accèder à une direction par rapport à sa salle
+	 * actuelle
 	 * 
 	 * S'il y a un combat, le joueur ne peut changer de salle
+	 * 
 	 * @author Fabien CAYRE (Computer)
 	 *
 	 * @param direction
@@ -150,11 +155,11 @@ public class DonjonController {
 	 * @date 02/05/2021
 	 */
 	public boolean estDisponible(int direction) {
-		if(this.combatActuel != null) return false;
-		if(direction < 0)return false;
-		if(direction >= Direction.values().length) return false;
+		if (this.combatActuel != null) return false;
+		if (direction < 0) return false;
+		if (direction >= Direction.values().length) return false;
 		Direction dir = Direction.getForDonjon(direction);
-		switch(dir) {
+		switch (dir) {
 		case EST:
 			return this.heros.getSalle().getEst() != null;
 		case NORD:
@@ -170,50 +175,52 @@ public class DonjonController {
 	/**
 	 * Vérifie si la salle dans laquelle se dirige le joueur est unidirectionelle
 	 * 
-	 * Ex:
-	 * - Une salle peut avoir une porte EST qui mène à une autre salle ne possèdant pas de porte OUEST
+	 * Ex: - Une salle peut avoir une porte EST qui mène à une autre salle ne
+	 * possèdant pas de porte OUEST
 	 * 
 	 * @author Fabien CAYRE (Computer)
 	 *
-	 * @return True si la porte est unidirectionelle, False si non OU s'il n'y a pas de sortie sur la direction
+	 * @return True si la porte est unidirectionelle, False si non OU s'il n'y a pas
+	 *         de sortie sur la direction
 	 * @date 02/05/2021
 	 */
 	public boolean estUnidirectionelle(int direction) {
-		if(direction < 0)return false;
-		if(direction >= Direction.values().length) return false;
+		if (direction < 0) return false;
+		if (direction >= Direction.values().length) return false;
 		Direction dir = Direction.getForDonjon(direction);
 		boolean estDispo = estDisponible(direction);
-		if(!estDispo) return false;
-		switch(dir) {
+		if (!estDispo) return false;
+		switch (dir) {
 		case EST:
-			if(this.heros.getSalle().getEst() == null) return false;
+			if (this.heros.getSalle().getEst() == null) return false;
 			return this.heros.getSalle().getEst().getOuest() == null;
 		case NORD:
-			if(this.heros.getSalle().getNord() == null) return false;
+			if (this.heros.getSalle().getNord() == null) return false;
 			return this.heros.getSalle().getNord().getSud() == null;
 		case OUEST:
-			if(this.heros.getSalle().getOuest() == null) return false;
+			if (this.heros.getSalle().getOuest() == null) return false;
 			return this.heros.getSalle().getOuest().getEst() == null;
 		case SUD:
-			if(this.heros.getSalle().getSud() == null) return false;
+			if (this.heros.getSalle().getSud() == null) return false;
 			return this.heros.getSalle().getSud().getNord() == null;
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Permet de faire changer de salle au joueur
+	 * 
 	 * @author Fabien CAYRE (Computer)
 	 *
 	 * @param direction
 	 * @date 02/05/2021
 	 */
 	public void changerSalle(int direction) {
-		if(direction < 0)return;
-		if(direction >= Direction.values().length) return;
+		if (direction < 0) return;
+		if (direction >= Direction.values().length) return;
 		Direction dir = Direction.getForDonjon(direction);
 		this.heros.setSallePrecedente(this.heros.getSalle());
-		switch(dir) {
+		switch (dir) {
 		case EST:
 			this.heros.setSalle(this.heros.getSalle().getEst());
 			break;
@@ -228,9 +235,10 @@ public class DonjonController {
 			break;
 		}
 	}
-	
+
 	/**
 	 * Augmenter le tour actuel de 1
+	 * 
 	 * @author Fabien CAYRE (Computer)
 	 *
 	 * @date 07/05/2021
@@ -240,29 +248,32 @@ public class DonjonController {
 	}
 
 	/**
-	 * Un combat est disponible quand le joueur est dans la salle
-	 * et que la différence entre le tour actuel et le tour dans lequel le joueur est rentré dans cette salle
-	 * est supérieur à 2 ou que ce joueur n'est jamais rentré dans la salle
+	 * Un combat est disponible quand le joueur est dans la salle et que la
+	 * différence entre le tour actuel et le tour dans lequel le joueur est rentré
+	 * dans cette salle est supérieur à 2 ou que ce joueur n'est jamais rentré dans
+	 * la salle
 	 * 
 	 * Si un combat est en cours, il ne peut avoir un combat de disponible
+	 * 
 	 * @author Fabien CAYRE (Computer)
 	 *
 	 * @return
 	 * @date 07/05/2021
 	 */
 	public boolean estCombatDisponible() {
-		if(this.combatActuel != null) return false;
+		if (this.combatActuel != null) return false;
 		Salle salleActuelle = this.heros.getSalle();
 		// Si c'est l'entrée : pas de combat
-		if(salleActuelle == this.entree) return false;
+		if (salleActuelle == this.entree) return false;
 		return salleActuelle.getRentrerTour() == -1 || salleActuelle.getRentrerTour() + 2 < this.tour;
 	}
-	
+
 	/**
-	 * Le combat commence entre un héros et de 1 à 3 monstres
-	 * Il y a 50% de chance pour que le joueur tombe avec 1 monstre
-	 * Il y a 30% de chance pour que le joueur tombe avec 2 monstres
-	 * Il y a 20% de chance pour que le joueur tombe avec 3 monstres
+	 * Le combat commence entre un héros et de 1 à 3 monstres Il y a 50% de chance
+	 * pour que le joueur tombe avec 1 monstre Il y a 30% de chance pour que le
+	 * joueur tombe avec 2 monstres Il y a 20% de chance pour que le joueur tombe
+	 * avec 3 monstres
+	 * 
 	 * @author Fabien CAYRE (Computer)
 	 *
 	 * @date 07/05/2021
@@ -275,30 +286,31 @@ public class DonjonController {
 			e.printStackTrace();
 		}
 		int nbMonstre = -1;
-		if(random < 0.5) {
-			//50% de chances
+		if (random < 0.5) {
+			// 50% de chances
 			nbMonstre = 1;
-		}else if (random >= 0.5 && random < 0.8) {
+		} else if (random >= 0.5 && random < 0.8) {
 			nbMonstre = 2;
-		}else if (random >= 0.8 && random <= 1) {
+		} else if (random >= 0.8 && random <= 1) {
 			nbMonstre = 3;
 		}
 		List<Monstre> monstres = new ArrayList<>();
-		if(!estDerniereSalle()) {
-			for(int i = 0; i < nbMonstre; i++) {
+		if (!estDerniereSalle()) {
+			for (int i = 0; i < nbMonstre; i++) {
 				monstres.add(new MortVivant());
 			}
-		}else {
+		} else {
 			monstres.add(new MortVivant());
 			monstres.add(new Boss());
 		}
-		 
+
 		Combat combat = new Combat(heros, monstres);
 		this.combatActuel = combat;
 	}
 
 	/**
 	 * Vérifie que le donjon est terminé
+	 * 
 	 * @author Fabien CAYRE (Computer)
 	 *
 	 * @return
@@ -310,6 +322,18 @@ public class DonjonController {
 
 	public boolean estDerniereSalle() {
 		return this.heros.getSalle() == this.sortie;
+	}
+
+	public String afficherStatistique() {
+		return "§a" + heros.getPtsVie() + " points de vie §f| §c" + heros.getDegatTotal() + " points de dégats §f| §5"
+			+ heros.getTotalArmure() + " points d'armure (Réduction des dégats de "+Nombre.format(heros.getDegatReductionPerc())+"%)§f| §e" + heros.getPieceOr() + " pièces d'or§f"
+			+"\n"
+			+"§fCasque: "+heros.afficherEquipement(Emplacement.TETE)+"§f | Armure: "+heros.afficherEquipement(Emplacement.BUSTE)+"§f | Main: "+heros.afficherEquipement(Emplacement.MAIN);
+	}
+
+	public void remplirVieHeros() {
+		this.heros.setPtsVie(this.heros.getMaxVie());
+
 	}
 
 }

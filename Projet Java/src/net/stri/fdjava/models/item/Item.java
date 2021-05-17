@@ -73,6 +73,10 @@ public class Item implements Serializable, Cloneable  {
 		Item other = (Item) obj;
 		return Objects.equals(proprietesItem, other.proprietesItem) && quantite == other.quantite && type == other.type;
 	}
+
+	public String afficherProps() {
+		return this.getProprietesItem().afficherProps();
+	}
 	
 	
 	

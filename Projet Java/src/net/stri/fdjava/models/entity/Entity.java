@@ -51,6 +51,9 @@ public abstract class Entity implements Serializable {
 	@Setter
 	protected int ptsForce;
 
+	@Getter @Setter
+	private int maxVie;
+
 	/**
 	 * 
 	 * @author Fabien CAYRE (Computer)
@@ -63,6 +66,7 @@ public abstract class Entity implements Serializable {
 	public Entity(String nom, int ptsVie, int ptsForce) {
 		this.nom = nom;
 		this.ptsVie = ptsVie;
+		this.maxVie = ptsVie;
 		this.ptsForce = ptsForce;
 		this.equipement = new HashMap<>();
 	}
@@ -81,7 +85,7 @@ public abstract class Entity implements Serializable {
 		int totalDamage = getDegatTotal();
 
 		// Calcul armure (réduction des dégats)
-		totalDamage -= getTotalArmure();
+		totalDamage = (int) (((double) totalDamage) * entity.getDegatMultiplicateur());
 		
 		if(totalDamage > 0) {
 			entity.setPtsVie(entity.getPtsVie() - totalDamage);
@@ -129,12 +133,27 @@ public abstract class Entity implements Serializable {
 		}
 		if (this.equipement.containsKey(Emplacement.TETE)) {
 			Item item = this.equipement.get(Emplacement.TETE);
-			if (item.getType() == TypeItem.ARMURE) {
+			if (item.getType() == TypeItem.CASQUE) {
 				ProprietesOffensive props = (ProprietesOffensive) item.getProprietesItem();
 				totalArmure += props.getPtsForce();
 			}
 		}
 		return totalArmure;
+	}
+	
+	public double getDegatReductionPerc() {
+		return (1-getDegatMultiplicateur())*100;
+	}
+	
+	/**
+	 * 
+	 * @author Fabien CAYRE (Computer)
+	 *
+	 * @return
+	 * @date 17/05/2021
+	 */
+	public double getDegatMultiplicateur() {
+		return 100 / (100 + ((double) this.getTotalArmure()));
 	}
 
 	/**
@@ -154,6 +173,14 @@ public abstract class Entity implements Serializable {
 		}
 	}
 
+	public String afficherEquipement(Emplacement emplacement) {
+		if(this.equipement.containsKey(emplacement)) {
+			return this.equipement.get(emplacement).afficherProps();
+		}else {
+			return "§bVide";
+		}
+	}
+	
 	/**
 	 * 
 	 * @author Fabien CAYRE (Computer)

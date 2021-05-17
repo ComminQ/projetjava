@@ -55,6 +55,7 @@ public class BoutiqueController {
 			res = "§aVous avez acheté "+i.getProprietesItem().getCouleur()+i.getProprietesItem().getNom();
 			res+= "\n"+"§apour §e"+product.getValue();
 			res+= "\n"+"§fVous avez donc §e"+this.heros.getPieceOr()+" pièce d'or§f.";
+			this.heros.getInventaire().ajouterObjet(i.clone());
 		}
 		return res;
 	}
@@ -65,7 +66,7 @@ public class BoutiqueController {
 		for(Map.Entry<Item, Integer> entry : this.boutique.entrySet()) {
 			Item i = entry.getKey();
 			int prix = entry.getValue();
-			produits.add("- §f(§b"+n+"§f) "+i.getProprietesItem().getCouleur()+i.getProprietesItem().getNom()+"§f , pour §e"+prix+" pièces d'or§f"); 
+			produits.add("- §f(§b"+n+"§f) "+i.afficherProps()+"§f , pour §e"+prix+" pièces d'or§f"); 
 			n++;
 		}
 		return produits;

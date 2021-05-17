@@ -61,7 +61,9 @@ public class CombatControleur {
 		if (mort) {
 			text += "\n" + "§aVous avez tué le monstre!";
 			int pieceOr = Nombre.nombreAleatoire(50, 100);
-			text += "\n" + "§fVous gagnez également §e" + pieceOr + " §fpièces d'or !";
+			text += "\n" + "§fVous gagnez §e" + pieceOr + " §fpièces d'or !";
+			text += "\n" + "§aVous regagnez votre vie";
+			controleur.remplirVieHeros();
 			this.heros.ajouterPieceOr(pieceOr);
 		}
 		return text;

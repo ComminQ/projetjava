@@ -16,19 +16,21 @@ import net.stri.fdjava.models.entity.TypeHeros;
  */
 public class CreerHerosController {
 
-	@Getter @Setter
+	@Getter
+	@Setter
 	private Heros heros;
 
 	public CreerHerosController(Heros heros) {
 		this.heros = heros;
 	}
-	
+
 	public void setNomHeros(String heros) {
 		this.heros.setNom(heros);
 	}
 
 	/**
 	 * Permet de changer le type du héros
+	 * 
 	 * @author Fabien CAYRE (Computer)
 	 *
 	 * @param index
@@ -36,12 +38,10 @@ public class CreerHerosController {
 	 */
 	public void setTypeHeros(int index) {
 		TypeHeros type = TypeHeros.values()[index];
+		this.heros.setMaxVie(type.getPointDeVie());
 		this.heros.setPtsVie(type.getPointDeVie());
 		this.heros.setPtsForce(type.getDegat());
-		
+
 	}
-	
-	
-	
-	
+
 }

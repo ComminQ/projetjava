@@ -1,6 +1,7 @@
 package net.stri.fdjava;
 
 
+import static net.stri.fdjava.utils.Console.println;
 
 import net.stri.fdjava.controllers.CombatControleur;
 import net.stri.fdjava.controllers.DonjonController;
@@ -59,6 +60,7 @@ public class Main {
 					// on déplace dans l'ancienne salle
 					controleur.getHeros().setSalle(controleur.getHeros().getSallePrecedente());
 				}
+				controleur.remplirVieHeros();
 				combatVue.afficherFinCombat();
 				if(combatControl.estTermine()) {
 					// On supprime le combat
@@ -82,6 +84,16 @@ public class Main {
 				break;
 			}
 			Console.nettoyerEcran();
+		}
+		
+		if(aGagne) {
+			println("");
+			println("");
+			println("§aVOUS AVEZ GAGNÉ ! Bravo ! ");
+		}else {
+			println("");
+			println("");
+			println("§cDommage... Ré-essayez!");
 		}
 		
 	}

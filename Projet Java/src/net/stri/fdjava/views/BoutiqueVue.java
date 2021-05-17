@@ -17,11 +17,12 @@ public class BoutiqueVue {
 	public void utiliserBoutique() {
 		int choix = -1;
 		while(true) {
+			println("§fVous avez §e"+controleur.nombrePieceOr()+" pièces d'or.§f");
 			println("§fVeuillez choisir le numéro de l'item à acheter");
 			for(String string : controleur.afficherProduits()) {
 				println(string);
 			}
-			println("- §c("+controleur.nombreProduits()+") - §cQuitter la boutique");
+			println("- §c("+controleur.nombreProduits()+") - §cQuitter la boutique§f");
 			choix = Console.demanderEntier();
 			if(choix == controleur.nombreProduits()) {
 				break;

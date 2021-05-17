@@ -89,6 +89,7 @@ public class CombatVue {
 
 	public void afficherFinCombat() {
 		println("§fLe §ecombat§f est terminé!");
+		println("§aVotre barre de vie est remplie!§f");
 	}
 
 }
