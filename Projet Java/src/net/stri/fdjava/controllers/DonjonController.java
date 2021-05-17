@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.Setter;
 import net.stri.fdjava.models.entity.Heros;
 import net.stri.fdjava.models.entity.Monstre;
+import net.stri.fdjava.models.entity.monstre.Boss;
 import net.stri.fdjava.models.entity.monstre.MortVivant;
 import net.stri.fdjava.models.world.Combat;
 import net.stri.fdjava.models.world.Salle;
@@ -283,8 +284,13 @@ public class DonjonController {
 			nbMonstre = 3;
 		}
 		List<Monstre> monstres = new ArrayList<>();
-		for(int i = 0; i < nbMonstre; i++) {
+		if(!estDerniereSalle()) {
+			for(int i = 0; i < nbMonstre; i++) {
+				monstres.add(new MortVivant());
+			}
+		}else {
 			monstres.add(new MortVivant());
+			monstres.add(new Boss());
 		}
 		 
 		Combat combat = new Combat(heros, monstres);
@@ -299,8 +305,11 @@ public class DonjonController {
 	 * @date 07/05/2021
 	 */
 	public boolean estTerminer() {
-		// TODO Auto-generated method stub
-		return false;
+		return this.heros.getSalle() == this.sortie && this.combatActuel == null;
+	}
+
+	public boolean estDerniereSalle() {
+		return this.heros.getSalle() == this.sortie;
 	}
 
 }

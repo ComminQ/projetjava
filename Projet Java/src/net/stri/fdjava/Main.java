@@ -1,5 +1,7 @@
 package net.stri.fdjava;
 
+
+
 import net.stri.fdjava.controllers.CombatControleur;
 import net.stri.fdjava.controllers.DonjonController;
 import net.stri.fdjava.models.entity.Heros;
@@ -11,16 +13,16 @@ import net.stri.fdjava.views.SalleDonjonVue;
 public class Main {
 
 	public static void main(String[] args) {
+		Console.nettoyerEcran();
 		Heros heros = RawCreerHerosControllerTest.creerHeros();
 		DonjonController controleur = new DonjonController(heros);
 		SalleDonjonVue vue = new SalleDonjonVue(controleur);
 
 		vue.afficherEntree();
 		
-		
 		boolean estTermine = false;
 		boolean aGagne = false;
-		
+		Console.nettoyerEcran();
 		
 		while (!estTermine) {
 			boolean retourBoucle = vue.selectionnerSalle();
@@ -37,6 +39,7 @@ public class Main {
 					combatVue.attaqueHeros();
 					// On doit vérifier si l'utlisateur veut fuir
 					if(combatVue.isFuir()) {
+						Console.nettoyerEcran();
 						break;
 					}
 					// C'est au tour du monstre d'attaquer
@@ -60,6 +63,12 @@ public class Main {
 				if(combatControl.estTermine()) {
 					// On supprime le combat
 					controleur.setCombatActuel(null);
+					// Est ce que le combat est terminé ET que c'est la dernière salle ??
+					if(controleur.estDerniereSalle()) {
+						estTermine = true;
+						aGagne = true;
+						break;
+					}
 				}
 			}
 			

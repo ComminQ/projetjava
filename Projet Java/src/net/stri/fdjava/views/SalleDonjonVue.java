@@ -2,6 +2,7 @@ package net.stri.fdjava.views;
 
 import static net.stri.fdjava.utils.Console.println;
 
+import net.stri.fdjava.controllers.BoutiqueController;
 import net.stri.fdjava.controllers.DonjonController;
 import net.stri.fdjava.controllers.InventaireController;
 import net.stri.fdjava.utils.Console;
@@ -56,9 +57,10 @@ public class SalleDonjonVue {
 
 		println("§dChoix des directions : §f" + choix);
 		println("§dOuvrir l'inventaire: §f"+Direction.values().length);
+		println("§dOuvrir la boutique: §f"+(Direction.values().length + 1));
 		int direction = -1;
 		while (!this.controleur.estDisponible(direction)) {
-			while (direction < 0 || direction > Direction.values().length) {
+			while (direction < 0 || direction > Direction.values().length+1) {
 				direction = Console.demanderEntier();
 			}
 			if (this.controleur.estDisponible(direction)) break;
@@ -71,9 +73,10 @@ public class SalleDonjonVue {
 			}
 			if(direction == Direction.values().length + 1) {
 				// Ouvrir la boutique
-				
-				
-				return false;
+				BoutiqueController controleurBoutique = new BoutiqueController(controleur);
+				BoutiqueVue boutiqueVue = new BoutiqueVue(controleurBoutique);
+				boutiqueVue.utiliserBoutique();
+				return true;
 			}
 			println("§cCette direction n'est pas disponible");
 			println("§fEcrivez le numéro de la direction : ");
