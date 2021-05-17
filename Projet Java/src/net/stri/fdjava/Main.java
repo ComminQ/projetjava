@@ -11,7 +11,6 @@ import net.stri.fdjava.views.SalleDonjonVue;
 public class Main {
 
 	public static void main(String[] args) {
-		Console.nettoyerEcran();
 		Heros heros = RawCreerHerosControllerTest.creerHeros();
 		DonjonController controleur = new DonjonController(heros);
 		SalleDonjonVue vue = new SalleDonjonVue(controleur);
@@ -25,7 +24,10 @@ public class Main {
 		
 		while (!estTermine) {
 			boolean retourBoucle = vue.selectionnerSalle();
-			if(retourBoucle) continue;
+			if(retourBoucle) {
+				Console.nettoyerEcran();
+				continue;
+			}
 			if (controleur.estCombatDisponible()) {
 				controleur.demarrerCombat();
 				CombatControleur combatControl = new CombatControleur(heros, controleur);
@@ -43,6 +45,7 @@ public class Main {
 						// Si le héros est mort lors de l'attaque du monstre, la partie est terminé
 						combatVue.herosMort();
 						estTermine = true;
+						Console.nettoyerEcran();
 						break;
 					}
 				}
@@ -66,8 +69,10 @@ public class Main {
 				estTermine = controleur.estTerminer();
 			}
 			if(estTermine) {
+				Console.nettoyerEcran();
 				break;
 			}
+			Console.nettoyerEcran();
 		}
 		
 	}
