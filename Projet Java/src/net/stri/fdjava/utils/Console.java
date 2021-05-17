@@ -48,7 +48,7 @@ public final class Console {
 	}
 
 	/**
-	 * Permet de clear le terminal
+	 * Permet de clear le terminal (code ASCI)
 	 * @author Fabien CAYRE (Computer)
 	 *
 	 * @date 03/05/2021

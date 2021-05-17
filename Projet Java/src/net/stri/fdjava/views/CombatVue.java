@@ -4,7 +4,6 @@ import static net.stri.fdjava.utils.Console.println;
 
 import lombok.Getter;
 import net.stri.fdjava.controllers.CombatControleur;
-import net.stri.fdjava.models.entity.Monstre;
 import net.stri.fdjava.utils.Console;
 
 public class CombatVue {
@@ -69,7 +68,7 @@ public class CombatVue {
 				return;
 			}else {
 				println("§fVous attaquez le monstre §cn°"+pos+"§f.");
-				println("§fVous avez infligez §c"+this.controleur.attaqueHeros(pos)+" pts de dégats§f!");
+				println("§fVous avez infligez §c"+this.controleur.attaqueHeros(pos));
 			}
 		}
 	}

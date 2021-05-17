@@ -36,6 +36,10 @@ public class Heros extends Entity implements Serializable {
 	@Getter
 	@Setter
 	private Salle sallePrecedente;
+	
+	@Getter
+	@Setter
+	private int pieceOr;
 
 	public Heros(String nom, int ptsVie, int ptsForce) {
 		super(nom, ptsVie, ptsForce);
@@ -54,6 +58,9 @@ public class Heros extends Entity implements Serializable {
 		return 0;
 	}
 	
+	public void ajouterPieceOr(int pieceOr) {
+		this.pieceOr += pieceOr;
+	}
 
 	@Override
 	public String toString() {

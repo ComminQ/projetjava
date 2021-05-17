@@ -29,17 +29,17 @@ public class Combat {
 		return this.monstres.size();
 	}
 
-	public void herosAttaque() {
+	public int herosAttaque() {
 		if (getNombreMonstres() > 0) {
-			herosAttaque(0);
+			return herosAttaque(0);
 		} else {
 			throw new IllegalAccessError("L'héros attaque alors qu'il n'y a plus de monstre");
 		}
 	}
 
-	public void monstreAttaque() {
+	public int monstreAttaque() {
 		if (getNombreMonstres() > 0) {
-			monstreAttaque(0);
+			return monstreAttaque(0);
 		} else {
 			throw new IllegalAccessError("Il n'y a plus de monstre");
 		}

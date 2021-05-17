@@ -6,6 +6,7 @@ import java.util.List;
 import net.stri.fdjava.models.entity.Heros;
 import net.stri.fdjava.models.entity.Monstre;
 import net.stri.fdjava.models.world.Combat;
+import net.stri.fdjava.utils.Nombre;
 
 public class CombatControleur {
 
@@ -27,32 +28,43 @@ public class CombatControleur {
 	}
 
 	public String attaqueHeros() {
-		combat().herosAttaque();
+		int degatsInflige = combat().herosAttaque();
 		boolean mort = false;
 		if (combat().getMonstres().get(0).getPtsVie() <= 0) {
 			combat().tuer(0);
 			mort = true;
 		}
-		String text = String.valueOf(this.heros.getDegatTotal())+" points de dégats.§f";
+		String text = String.valueOf(degatsInflige) + " points de dégats.§f";
 		if (mort) {
 			text += "\n" + "§aVous avez tué le monstre!";
+			int pieceOr = Nombre.nombreAleatoire(50, 100);
+			text += "\n" + "§fVous gagnez également §e" + pieceOr + " §fpièces d'or !";
+			this.heros.ajouterPieceOr(pieceOr);
 		}
 		return text;
 	}
 
 	public String attaquerMonstre() {
-		combat().monstreAttaque();
-		return String.valueOf(combat().getMonstres().get(0).getDegatTotal());
+		int degat = combat().monstreAttaque();
+		return String.valueOf(degat);
 	}
 
 	public String attaqueHeros(int num) {
-		int degatsInflige = this.controleur.getCombatActuel().monstreAttaque(num);
+		int degatsInflige = this.controleur.getCombatActuel().herosAttaque(num);
+		boolean mort = false;
 		Monstre m = combat().getMonstres().get(num);
-		String value = String.valueOf(degatsInflige);
 		if (m.getPtsVie() <= 0) {
 			combat().tuer(m);
+			mort = true;
 		}
-		return value;
+		String text = String.valueOf(degatsInflige) + " points de dégats.§f";
+		if (mort) {
+			text += "\n" + "§aVous avez tué le monstre!";
+			int pieceOr = Nombre.nombreAleatoire(50, 100);
+			text += "\n" + "§fVous gagnez également §e" + pieceOr + " §fpièces d'or !";
+			this.heros.ajouterPieceOr(pieceOr);
+		}
+		return text;
 	}
 
 	public String attaqueMonstre(int num) {
@@ -62,9 +74,13 @@ public class CombatControleur {
 
 	public List<String> attaqueMonstres() {
 		List<String> display = new ArrayList<>();
-		for(int i = 0; i < nombreMonstre(); i++) {
+		for (int i = 0; i < nombreMonstre(); i++) {
 			Monstre m = combat().getMonstres().get(i);
-			display.add("§e->§f Le "+m.getNom()+" vous a attaqué et vous a infligé §c"+attaqueMonstre(i)+" points de dégats§f.");
+			display
+				.add(
+					"§e->§f Le " + m.getNom() + " vous a attaqué et vous a infligé §c" + attaqueMonstre(i)
+						+ " points de dégats§f.");
+			display.add("§fVous avez maintenant §a"+this.heros.getPtsVie()+" points de vie");
 		}
 		return display;
 	}

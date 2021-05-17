@@ -3,6 +3,7 @@ package net.stri.fdjava.views;
 import static net.stri.fdjava.utils.Console.println;
 
 import net.stri.fdjava.controllers.DonjonController;
+import net.stri.fdjava.controllers.InventaireController;
 import net.stri.fdjava.utils.Console;
 
 /**
@@ -62,7 +63,17 @@ public class SalleDonjonVue {
 			}
 			if (this.controleur.estDisponible(direction)) break;
 			if (direction == Direction.values().length) {
+				// Ouvrir l'inventaire
+				InventaireController controleurInv = new InventaireController(controleur.getHeros()); 
+				InventaireVue inventaireVue = new InventaireVue(controleurInv);
+				inventaireVue.utiliserInventaire();
 				return true;
+			}
+			if(direction == Direction.values().length + 1) {
+				// Ouvrir la boutique
+				
+				
+				return false;
 			}
 			println("§cCette direction n'est pas disponible");
 			println("§fEcrivez le numéro de la direction : ");
